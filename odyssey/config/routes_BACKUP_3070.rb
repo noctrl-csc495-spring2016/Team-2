@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
+  root                               'pages#home1'
+  get    'pickup/new'             => 'pickups#new'
+=======
   root                               'pages#index'
+>>>>>>> nicko-updating-css
   get    'about'                  => 'pages#about'
 
   get    'home/home1'             => 'pages#home1'
@@ -19,6 +24,10 @@ Rails.application.routes.draw do
   get    'schedule/schedule3'     => 'pages#schedule3'
   
   get    'template'               => 'pages#template'
+<<<<<<< HEAD
   
   resources :pickups
 end
+=======
+end
+>>>>>>> nicko-updating-css
