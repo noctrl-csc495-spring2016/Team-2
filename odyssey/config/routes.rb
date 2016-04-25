@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root                               'pages#home1'
+  get    'pickup/new'             => 'pickups#new'
   get    'about'                  => 'pages#about'
   
   get    'admin/admin1'           => 'pages#admin1'
@@ -15,4 +16,6 @@ Rails.application.routes.draw do
   get    'schedule/schedule3'     => 'pages#schedule3'
   
   get    'template'               => 'pages#template'
+  
+  resources :pickups
 end
