@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   get    'reports/report2'        => 'pages#report2'
   get    'reports/report3'        => 'pages#report3'
   
+  get    'reports'                => 'reports#reports'
+  get    'reports/donor'          => 'reports#donor'
+  get    'reports/truck'          => 'reports#truck'
+  
   get    'schedule/schedule1'     => 'pages#schedule1'
   get    'schedule/schedule2'     => 'pages#schedule2'
   get    'schedule/schedule3'     => 'pages#schedule3'
