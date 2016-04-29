@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
 
-  root                               'pages#index'
+  root                               'sessions#new'
   get    'about'                  => 'pages#about'
 
   get    'home/home1'             => 'pages#home1'
@@ -23,6 +22,9 @@ Rails.application.routes.draw do
   post   'schedule/create'        => 'days#create'
   
   get    'template'               => 'pages#template'
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
   
   resources :pickups
 end

@@ -13,18 +13,16 @@
             <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
                 <h4 class="text-center">Log in to Sharing Connections<br> Pickup Assistant</h4>
                 <br>
-                <form action="home/home1">
-                    <div class="form-group">
-                        <label for="userID">User ID</label>
-                        <input type="text" class="form-control" id="userID">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password">
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-warning btn-wide center-block">Login</button>
-                </form>
+                    <%= form_for(:session, url: login_path) do |f| %>
+              
+                    <%= f.label :email %>
+                    <%= f.email_field :email, class: 'form-control' %>
+              
+                    <%= f.label :password %>
+                    <%= f.password_field :password, class: 'form-control' %>
+              
+                    <%= f.submit "Log in", class: "btn btn-primary" %>
+                    <% end %>
                 <br>
                 <p class="text-center">Forgot your password? Please contact so.andso@admin.com to request a password reset.</p>
             </div>
