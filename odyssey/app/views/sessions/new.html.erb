@@ -15,8 +15,8 @@
                 <br>
                     <%= form_for(:session, url: login_path) do |f| %>
               
-                    <%= f.label :email %>
-                    <%= f.email_field :email, class: 'form-control' %>
+                    <%= f.label :user_id %>
+                    <%= f.text_field :user_id, class: 'form-control' %>
               
                     <%= f.label :password %>
                     <%= f.password_field :password, class: 'form-control' %>

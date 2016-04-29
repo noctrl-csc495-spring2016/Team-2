@@ -53,3 +53,13 @@ end
               created_at:             Time.zone.now,
               updated_at:             Time.zone.now,
               status:                 status)
+
+# Create a blank admin user, so that by default, while developing, login will still work
+User.create!(user_id: "",
+              user_name: "Test Admin",
+              user_email: "foo@foo.com",
+              user_password_digest: "",
+              permission_level: 2,
+              created_at: Time.zone.now,
+              updated_at: Time.zone.now,
+              status: status)
