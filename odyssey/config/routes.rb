@@ -15,8 +15,10 @@ Rails.application.routes.draw do
   get    'reports/report3'        => 'pages#report3'
   
   get    'schedule/schedule1'     => 'pages#schedule1'
-  get    'schedule/schedule2'     => 'pages#schedule2'
+  get    'schedule/schedule2'     => 'days#schedule2'
   get    'schedule/schedule3'     => 'pages#schedule3'
+  get    'schedule/all'           => 'days#all'
+  post   'schedule/create'        => 'days#create'
   
   get    'template'               => 'pages#template'
   
