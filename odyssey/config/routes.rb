@@ -20,5 +20,9 @@ Rails.application.routes.draw do
   
   get    'template'               => 'pages#template'
   
+  get 'users/index'  => 'users#index'
+
+  
   resources :pickups
+  resources :users
 end
