@@ -26,5 +26,9 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   
+  get 'users/index'  => 'users#index'
+
+  
   resources :pickups
+  resources :users
 end
