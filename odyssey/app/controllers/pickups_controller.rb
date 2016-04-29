@@ -17,6 +17,19 @@ class PickupsController < ApplicationController
     end
   end
   
+  def edit
+    @pickup = Pickup.find(params[:id])
+  end
+  
+  def update
+    @pickup = Pickup.find(params[:id])
+    if @pickup.update_attributes(pickup_params)
+      redirect_to @pickup
+    else
+      render 'edit'
+    end
+  end
+  
   private
     
     def pickup_params
