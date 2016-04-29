@@ -9,35 +9,49 @@ class DaysController < ApplicationController
   
   # Use show action to show a day and all of its coresponding scheduled pickups
   def show
-    @day = Pickup.find(params[:id])
+    @day = Day.find(params[:id])
   end
   
-  # Define a new pickup day
-  def new
-    @day = Pickup.new
+  # /schedule/schedule2
+  def schedule2
+    render 'pages/schedule/schedule2.html'
+  end
+  
+  def all
+     @days = Day.all
+     respond_to do |format|
+      format.json { render json: @days }
+    end
   end
   
   # Fill our day record with stuff
   def create
-    # Set a status and created and updated at here
-    @day = Pickup.new(pickup_params)
-    if @day.save
-      redirect_to @day
+    
+    if Day.find_by_date(params[:date])
+      respond_to do |format|
+        format.json { render json: "Sorry, that day is already marked as a pickup day."}
+      end
     else
-      render 'new'
+      @day = Day.new(day_params)
+      @day.number_of_pickups = 0
+      @day.status = "active"
+      @day.created_at = Time.zone.now
+      @day.updated_at = Time.zone.now
+      respond_to do |format|
+        if @day.save
+          format.json { render json: @day}
+        else
+          format.json { render json: @day.errors}
+        end
+      end
     end
-  end
-  
-  # Edit :number_of_pickups, :updated_at, :status
-  def edit
-    @day = Pickup.find(params[:id])
   end
   
   # Update :number_of_pickups, :updated_at, :status
   def update
     # Set the updated at and maybe the status
-    @day = Pickup.find(params[:id])
-    if @day.update_attributes(pickup_params)
+    @day = Day.find(params[:id])
+    if @day.update_attributes(day_params)
       redirect_to @day
     else
       render 'edit'
@@ -46,7 +60,7 @@ class DaysController < ApplicationController
   
   private
     # Make sure we only accept params we want
-    def pickup_params
-      params.require(:day).permit(:date)   # Need to put something in parens
+    def day_params
+      params.permit(:date, :number_of_pickups, :status)  
     end
 end

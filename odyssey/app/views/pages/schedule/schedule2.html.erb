@@ -2,62 +2,33 @@
 
 <script>
   $(document).ready(function() {
-    var events = [
-          {
-            title : 'pickupday1',
-            start  : '2016-04-11',
-            rendering : 'background',
-            allDay : true,
-            color : 'green'
-          },
-          {
-            title : 'pickupday1',
-            start  : '2016-04-13',
-            rendering : 'background',
-            allDay : true,
-            color : 'green'
-          },
-          {
-            title : 'pickupday1',
-            start  : '2016-04-15',
-            rendering : 'background',
-            allDay : true,
-            color : 'green'
-          },
-          {
-            title : 'pickupday1',
-            start  : '2016-04-12',
-            rendering : 'background',
-            allDay : true,
-            color : 'red'
-          }
-        ];
-    
     $('#calendar').fullCalendar({
         weekends: false,
         defaultView: 'month',
-			  editable: true,
-        businessHours: {
-            start: '7:00',
-            end: '18:00', 
-            dow: [ 1, 2, 3, 4, 5 ]
-        },
-        customButtons: {
-          addEvent: {
-            text: 'Add Event',
-            click: function() {
-                var title = prompt("Enter a title for the event.");
-                var start = prompt("Enter a START date/time (yyyy-mm-ddThh:mm:ss)");
-                var end = prompt("Enter a END date/time (yyyy-mm-ddThh:mm:ss)");
-                var color = prompt("Enter common color like 'green' or 'blue'.");
-                var obj = { 'title': title, 'start': start, 'end': end, 'allDay': false, 'color': color };
-                
-                events.push(obj);
-                
-                $('#calendar').fullCalendar('addEventSource', obj);
-                
-            }
-          }
+        dayClick: function(date, jsEvent, view) {
+            var modal = "<div class=\"modal fade\" id=\"confirmModal\" role=\"dialog\">" +
+                            "<div class=\"modal-dialog modal-sm\">" +
+                              "<div class=\"modal-content\">" +
+                                "<div class=\"modal-header\">" +
+                                    "<h4 class=\"modal-title\">Confirmation</h4>" +
+                                "</div>" +
+                                "<div class=\"modal-body\">" +
+                                    "<p>Make <strong>" + date.format('dddd, MMMM Do') + "</strong> avaliable to schedule pickups?</p>" +
+                                "</div>" +
+                                "<div class=\"modal-footer\">" +
+                                    "<button id=\"okButton\" type=\"button\" class=\"btn btn-success\" onclick=\"AddDay('"+date.format('Y-MM-DD')+"')\">Yes</button>" +
+                                    "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">No</button>" +
+                                "</div>" +
+                              "</div>" +
+                            "</div>" +
+                          "</div>";
+            $( ".container" ).append( modal );
+            $('#confirmModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            }).show().on('hidden.bs.modal', function (e) {
+              $(this).remove();
+            });
         },
         header: {
           left:   'title',
@@ -66,10 +37,71 @@
         }
     })
     
-     $('#calendar').fullCalendar('addEventSource', events);
-    
+    GetAllDays();
   });
-  </script>
+  
+    function AddDay(d) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/schedule/create",
+            data: { date: d },
+            success: function(data) {
+                GetAllDays();
+                    $('#confirmModal').modal('hide');
+                },
+            error: function(data) {
+                $('#confirmModal').modal('hide');
+                displayError(data.responseText);
+            }
+        });
+    }
+
+    function GetAllDays() {
+        var events = [];
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/schedule/all",
+            success: function(data) {
+                $.each(data, function(key, value){
+                    events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
+                })
+                $('#calendar').fullCalendar( 'removeEvents' )
+                $('#calendar').fullCalendar( 'addEventSource', events );
+                $('#calendar').fullCalendar( 'refetchEvents' );
+            },
+            error: function(data) {
+                $('#confirmModal').modal('hide');
+                displayError(data.responseText);
+            }
+        });
+    }
+    function displayError(error){
+        var modal = "<div class=\"modal fade\" id=\"errorModal\" role=\"dialog\">" +
+                            "<div class=\"modal-dialog modal-sm\">" +
+                              "<div class=\"modal-content\">" +
+                                "<div class=\"modal-header\">" +
+                                    "<h4 class=\"modal-title\">Error</h4>" +
+                                "</div>" +
+                                "<div class=\"modal-body\">" +
+                                    "<p>"+error+"</p>" +
+                                "</div>" +
+                                "<div class=\"modal-footer\">" +
+                                    "<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">OK</button>" +
+                                "</div>" +
+                              "</div>" +
+                            "</div>" +
+                          "</div>";
+            $( ".container" ).append( modal );
+            $('#errorModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            }).show().on('hidden.bs.modal', function (e) {
+              $(this).remove();
+            });
+    }
+</script>
 
 <div class="container white-container">
     <div class="row">
