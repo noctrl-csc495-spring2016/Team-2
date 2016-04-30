@@ -4,4 +4,36 @@ module SessionsHelper
   def log_in(user)
     session[:user_id] = user.id
   end
+  
+  # Retrieve the current user object
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+  
+  # A boolean function for determining if the user is logged in
+  def logged_in?
+    # If the current_user function returns nil, then it means the user
+    #  is not logged in.
+    !current_user.nil?
+  end
+  
+  
+  # Redirects the user to the login page if they are not logged in.
+  #  This function is intended to be used as a before_action callback.
+  def logged_in
+    if !logged_in?
+      flash[:danger] = "You are not logged in"
+      redirect_to login_url
+    end
+  end
+  
+  # This will remove the user_id from the session. Redirecting to the
+  #  home (login) page is left as a task for the calling code.
+  def log_out
+    # Delete the user_id token from the session
+    session.delete(:user_id)
+    # Set the current user to nil, so that nothing else operates on the
+    #  (now mistaken) assumption that the user is still logged in.
+    @current_user = nil
+  end
 end
