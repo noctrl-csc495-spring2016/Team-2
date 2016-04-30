@@ -10,6 +10,8 @@ class SessionsController < ApplicationController
     
     # If the user exists, send them to the home1 page
     if user
+      # Store the user_id in the session
+      log_in user
       redirect_to '/home/home1'
     else
       # Otherwise, keep them on the login page.
