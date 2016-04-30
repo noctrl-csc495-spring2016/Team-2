@@ -13,7 +13,6 @@ class SessionsController < ApplicationController
       redirect_to '/home/home1'
     else
       # Otherwise, keep them on the login page.
-      # TODO: Figure out why the flash message doesn't work
       flash.now[:danger] = 'Invalid user ID/password combination'
       render 'new'
     end
