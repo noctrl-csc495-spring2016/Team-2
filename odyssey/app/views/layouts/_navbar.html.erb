@@ -15,7 +15,7 @@
     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/admin/admin1">Settings</a></li>
-                        <li><a href="/">Logout</a></li>
+                        <li><%= link_to "Log out", logout_path, method: "delete" %></li>
                     </ul>
                 </li>
                 <li role="presentation"><a href="/admin/admin1">Admin</a></li>
