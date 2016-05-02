@@ -17,24 +17,7 @@
                     <%= form_for(:session, url: login_path) do |f| %>
                     
                     
-                    <% if flash[:danger] %>
-                        <div id="error_explanation">
-                          <div class="alert alert-danger">
-                            <% flash.each do |msg| %>
-                              <%= msg[1] %>
-                            <% end %>
-                          </div>
-                        </div>
-                    <% end %>
-                    <% if flash[:success] %>
-                        <div id="success_explanation">
-                          <div class="alert alert-success">
-                            <% flash.each do |msg| %>
-                              <%= msg[1] %>
-                            <% end %>
-                          </div>
-                        </div>
-                    <% end %>
+                    <%= render 'layouts/flash_messages' %>
                     
                     <%= f.label :user_id %>
                     <%= f.text_field :user_id, class: 'form-control' %>
