@@ -1,37 +1,23 @@
 <!-- Nicholas Drazenovic And Emily Huizenga -->
-<!DOCTYPE html>
-
-<head>
-    <!-- Viewport -->
-
-</head>
-
-<body>
-    <%= render 'layouts/login_navbar' %>
-    <div class='container'>
-        <div class='row'>
-            <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
-                <h4 class="text-center">Log in to Sharing Connections<br> Pickup Assistant</h4>
-                <br>
+<%= render 'layouts/login_navbar' %>
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
+            <h4 class="text-center">Log in to Sharing Connections<br> Pickup Assistant</h4>
+            <br>
+                <%= form_for(:session, url: login_path) do |f| %>
+                <%= render 'layouts/flash_messages' %>
                 
-                    <%= form_for(:session, url: login_path) do |f| %>
-                    
-                    
-                    <%= render 'layouts/flash_messages' %>
-                    
-                    <%= f.label :user_id %>
-                    <%= f.text_field :user_id, class: 'form-control' %>
-              
-                    <%= f.label :password %>
-                    <%= f.password_field :password, class: 'form-control' %>
-              
-                    <%= f.submit "Log in", class: "btn btn-primary" %>
-                    <% end %>
-                <br>
-                <p class="text-center">Forgot your password? Please contact so.andso@admin.com to request a password reset.</p>
-            </div>
+                <%= f.label :user_id %>
+                <%= f.text_field :user_id, class: 'form-control' %>
+          
+                <%= f.label :password %>
+                <%= f.password_field :password, class: 'form-control' %>
+          
+                <%= f.submit "Log in", class: "btn btn-primary" %>
+                <% end %>
+            <br>
+            <p class="text-center">Forgot your password? Please contact so.andso@admin.com to request a password reset.</p>
         </div>
     </div>
-</body>
-
-</html>
+</div>
