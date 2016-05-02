@@ -7,14 +7,28 @@ class DaysController < ApplicationController
   # t.datetime "updated_at",        null: false
   # t.string   "status"
   
+  # show all days
+  def index
+    @days = Day.all
+    render 'day/schedule1.html.erb'
+  end
+  
   # Use show action to show a day and all of its coresponding scheduled pickups
   def show
     @day = Day.find(params[:id])
   end
   
-  # /schedule/schedule2
-  def schedule2
-    render 'pages/schedule/schedule2.html'
+  def new
+    @START_YEAR = Time.new.year #The current year
+    @NUM_YEARS_TO_DISPLAY = 5
+    @day = Day.new
+    
+    render 'day/schedule2.html.erb'
+  end
+  
+  # /schedule/schedule3
+  def schedule3
+    render 'day/schedule3.html.erb'
   end
   
   def all
@@ -26,9 +40,9 @@ class DaysController < ApplicationController
   
   # Fill our day record with stuff
   def create
-    
     if Day.find_by_date(params[:date])
       respond_to do |format|
+        # Set up friednly forwarding to ask if they would like to view that day
         format.json { render json: "Sorry, that day is already marked as a pickup day."}
       end
     else

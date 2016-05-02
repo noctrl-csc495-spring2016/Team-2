@@ -14,11 +14,9 @@ Rails.application.routes.draw do
   get    'reports/report2'        => 'pages#report2'
   get    'reports/report3'        => 'pages#report3'
   
-  get    'schedule/schedule1'     => 'pages#schedule1'
-  get    'schedule/schedule2'     => 'days#schedule2'
-  get    'schedule/schedule3'     => 'pages#schedule3'
-  get    'schedule/all'           => 'days#all'
-  post   'schedule/create'        => 'days#create'
+  get    'days'                   => 'days#index'
+  get    'days/new'               => 'days#new'
+  get    'schedule/schedule3'     => 'days#schedule3'
   
   get    'template'               => 'pages#template'
   

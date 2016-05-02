@@ -5,30 +5,9 @@
     $('#calendar').fullCalendar({
         weekends: false,
         defaultView: 'month',
-        dayClick: function(date, jsEvent, view) {
-            var modal = "<div class=\"modal fade\" id=\"confirmModal\" role=\"dialog\">" +
-                            "<div class=\"modal-dialog modal-sm\">" +
-                              "<div class=\"modal-content\">" +
-                                "<div class=\"modal-header\">" +
-                                    "<h4 class=\"modal-title\">Confirmation</h4>" +
-                                "</div>" +
-                                "<div class=\"modal-body\">" +
-                                    "<p>Make <strong>" + date.format('dddd, MMMM Do') + "</strong> avaliable to schedule pickups?</p>" +
-                                "</div>" +
-                                "<div class=\"modal-footer\">" +
-                                    "<button id=\"okButton\" type=\"button\" class=\"btn btn-success\" onclick=\"AddDay('"+date.format('Y-MM-DD')+"')\">Yes</button>" +
-                                    "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">No</button>" +
-                                "</div>" +
-                              "</div>" +
-                            "</div>" +
-                          "</div>";
-            $( ".container" ).append( modal );
-            $('#confirmModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            }).show().on('hidden.bs.modal', function (e) {
-              $(this).remove();
-            });
+        dayClick: function(date, jsEvent, view){
+            //This makes no sense, but have to do it this way
+            displayConfirm(date, jsEvent, view); 
         },
         header: {
           left:   'title',
@@ -77,6 +56,33 @@
             }
         });
     }
+    
+    function displayConfirm(date, jsEvent, view) {
+        var modal = "<div class=\"modal fade\" id=\"confirmModal\" role=\"dialog\">" +
+                        "<div class=\"modal-dialog modal-sm\">" +
+                          "<div class=\"modal-content\">" +
+                            "<div class=\"modal-header\">" +
+                                "<h4 class=\"modal-title\">Confirmation</h4>" +
+                            "</div>" +
+                            "<div class=\"modal-body\">" +
+                                "<p>Make <strong>" + date.format('dddd, MMMM Do') + "</strong> avaliable to schedule pickups?</p>" +
+                            "</div>" +
+                            "<div class=\"modal-footer\">" +
+                                "<button id=\"okButton\" type=\"button\" class=\"btn btn-success\" onclick=\"AddDay('"+date.format('Y-MM-DD')+"')\">Yes</button>" +
+                                "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">No</button>" +
+                            "</div>" +
+                          "</div>" +
+                        "</div>" +
+                      "</div>";
+        $( ".container" ).append( modal );
+        $('#confirmModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        }).show().on('hidden.bs.modal', function (e) {
+          $(this).remove();
+        });
+    }
+    
     function displayError(error){
         var modal = "<div class=\"modal fade\" id=\"errorModal\" role=\"dialog\">" +
                             "<div class=\"modal-dialog modal-sm\">" +
@@ -136,9 +142,9 @@
                         <div class="form-group">
                             Year:
                             <select class="form-control">
-                                <option value="2016">2016</option>
-                                <option value="2015">2015</option>
-                                <option value="2014">2014</option>
+                                <% (@NUM_YEARS_TO_DISPLAY).times do |y| %>
+                                    <option value="<%= (@START_YEAR + y) %>"><%= (@START_YEAR + y) %></option>
+                                <% end %>
                             </select>
                         </div>
                         <br>
@@ -151,6 +157,7 @@
                             </a>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
