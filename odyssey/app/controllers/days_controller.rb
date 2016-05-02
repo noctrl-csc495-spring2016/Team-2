@@ -7,7 +7,7 @@ class DaysController < ApplicationController
   # t.datetime "updated_at",        null: false
   # t.string   "status"
   
-  # show all days
+  # Use this action to show all the days on schedule1 screen.
   def index
     @days = Day.all
     render 'day/schedule1.html.erb'
@@ -31,6 +31,8 @@ class DaysController < ApplicationController
     render 'day/schedule3.html.erb'
   end
   
+  # Use this action to return all of the days when called from ajax. Used by 
+  #   the calendar only.
   def all
      @days = Day.all
      respond_to do |format|
@@ -38,7 +40,10 @@ class DaysController < ApplicationController
     end
   end
   
-  # Fill our day record with stuff
+  # Use this action to create a new day from an ajax call made by the calendar.
+  #   The calendar will pass a date only and then we will give the number of
+  #   pickups 0, created at and updated at to right now, and set the record to
+  #   active.
   def create
     if Day.find_by_date(params[:date])
       respond_to do |format|

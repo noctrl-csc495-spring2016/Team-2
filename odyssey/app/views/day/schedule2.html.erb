@@ -6,8 +6,10 @@
         weekends: false,
         defaultView: 'month',
         dayClick: function(date, jsEvent, view){
-            //This makes no sense, but have to do it this way
-            displayConfirm(date, jsEvent, view); 
+            //displayConfirm(date, jsEvent, view);
+            
+            $('#calendar').fullCalendar( 'refetchEvents' );
+            $('#calendar').fullCalendar( 'renderEvent', {id:'0000TEMP0000', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
         },
         header: {
           left:   'title',
@@ -23,7 +25,7 @@
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "/schedule/create",
+            url: "/days/create",
             data: { date: d },
             success: function(data) {
                 GetAllDays();
@@ -41,7 +43,7 @@
         $.ajax({
             type: "GET",
             dataType: "json",
-            url: "/schedule/all",
+            url: "/days/all",
             success: function(data) {
                 $.each(data, function(key, value){
                     events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
