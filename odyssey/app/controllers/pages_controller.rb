@@ -50,21 +50,6 @@ class PagesController < ApplicationController
     render 'pages/reports/report3.html'
   end
   
-  # /schedule/schedule1
-  def schedule1
-    render 'pages/schedule/schedule1.html'
-  end
-  
-  # /schedule/schedule2
-  def schedule2
-    render 'pages/schedule/schedule2.html'
-  end
-  
-  # /schedule/schedule3
-  def schedule3
-    render 'pages/schedule/schedule3.html'
-  end
-  
   # /template
   def template
   end
