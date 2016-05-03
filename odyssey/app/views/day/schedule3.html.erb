@@ -1,0 +1,45 @@
+<%= render 'layouts/navbar' %>
+
+<div class='container white-container'>
+    <%= render 'layouts/flash_messages' %>
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <p>Select a pickup from the list below to edit.</p>
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-xs-11 col-xs-offset-1">
+            <table class="table table-hover table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>Last Name</th>
+                        <th>Town</th>
+                        <th>Item Quantity</th>
+                        <th>Item Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @pickups.each do |pickup| %>
+                        <tr>
+                            <td>
+                                <%=  %>
+                            </td>
+                            <td>
+                                <%=  %>
+                            </td>
+                            <td>
+                                <%=  %>
+                            </td>
+                            <td>
+                                <%=  %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
