@@ -67,24 +67,28 @@ class DaysController < ApplicationController
   #   pickups 0, created at and updated at to right now, and set the record to
   #   active.
   def create
-    if Day.find_by_date(params[:date])
-      respond_to do |format|
-        # Set up friednly forwarding to ask if they would like to view that day
-        format.json { render json: "Sorry, that day is already marked as a pickup day."}
-      end
+    
+    date = (params[:month]+" "+params[:day]+", "+params[:year]).to_date
+    
+    if Day.find_by_date(date)
+      flash[:danger] = "That day is already configured as a pickup day"
+      redirect_to '/days/new'
     else
       @day = Day.new(day_params)
+      @day.date = date
       @day.number_of_pickups = 0
       @day.status = "active"
       @day.created_at = Time.zone.now
       @day.updated_at = Time.zone.now
-      respond_to do |format|
-        if @day.save
-          format.json { render json: @day}
-        else
-          format.json { render json: @day.errors}
-        end
+
+      if @day.save
+        flash[:success] = "Day added successfully"
+        redirect_to '/days' # @day
+      else
+        flash[:danger] = "Day could not be added"
+        redirect_to '/days/new'
       end
+
     end
   end
   
@@ -102,6 +106,6 @@ class DaysController < ApplicationController
   private
     # Make sure we only accept params we want
     def day_params
-      params.permit(:date, :number_of_pickups, :status)  
+      params.permit(:month, :day, :year, :date, :number_of_pickups, :status)  
     end
 end

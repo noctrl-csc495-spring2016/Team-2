@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425175427) do
+ActiveRecord::Schema.define(version: 20160503020705) do
 
   create_table "days", force: :cascade do |t|
     t.date     "date"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20160425175427) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "status"
+    t.integer  "month"
+    t.integer  "day"
+    t.integer  "year"
   end
 
   create_table "pickups", force: :cascade do |t|
