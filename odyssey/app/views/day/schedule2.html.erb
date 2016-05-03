@@ -8,6 +8,16 @@
         dayClick: function(date, jsEvent, view){
             $('#calendar').fullCalendar( 'refetchEvents' );
             $('#calendar').fullCalendar( 'renderEvent', {id:'0000TEMP0000', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
+            
+            var dObj = new Date(date);
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            $('#month').val(monthNames[dObj.getMonth()]);
+            $('#day').val(dObj.getDate() + 1);
+            $('#year').val(dObj.getFullYear());
+            
+            // Trigger the on change to adjust our selects
+            $( "#month" ).trigger( "change" );
+            
         },
         header: {
           left:   'title',
