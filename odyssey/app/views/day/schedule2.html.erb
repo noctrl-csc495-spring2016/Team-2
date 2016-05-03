@@ -6,8 +6,6 @@
         weekends: false,
         defaultView: 'month',
         dayClick: function(date, jsEvent, view){
-            //displayConfirm(date, jsEvent, view);
-            
             $('#calendar').fullCalendar( 'refetchEvents' );
             $('#calendar').fullCalendar( 'renderEvent', {id:'0000TEMP0000', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
         },
@@ -109,6 +107,7 @@
               $(this).remove();
             });
     }
+    
 </script>
 
 <div class="container white-container">
@@ -123,31 +122,18 @@
             <p>To add a day, either select a day on the calendar or manually input the day below: </p>
             <div class="row">
                 <div class="col-xs-9 col-xs-offset-1">
-                    <form>
+                    <%= form_tag(days_create_path, :method=>'post') do %>
                         <div class="form-group">
                             Month:
-                            <select class="extra-right-margin form-control">
-                                <option value="January">January</option>
-                                <option value="February">February</option>
-                                <option value="March">March</option>
-                                <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="July">July</option>
-                                <option value="August">August</option>
-                                <option value="September">September</option>
-                                <option value="October">October</option>
-                                <option value="November">November</option>
-                                <option value="December">December</option>
-                            </select>
+                            <%= select_tag("month", options_for_select(@month_options, Date::MONTHNAMES[Date.today.month]), :class => 'form-control') %>
+                        </div>
+                        <div class="form-group">
+                            Day:
+                            <%= select_tag("day", options_for_select(@day_options, 1), :class => 'form-control') %>
                         </div>
                         <div class="form-group">
                             Year:
-                            <select class="form-control">
-                                <% (@NUM_YEARS_TO_DISPLAY).times do |y| %>
-                                    <option value="<%= (@START_YEAR + y) %>"><%= (@START_YEAR + y) %></option>
-                                <% end %>
-                            </select>
+                            <%= select_tag("year", options_for_select(@year_options, Time.new.year), :class => 'form-control') %>
                         </div>
                         <br>
                         <div class="form-group">
@@ -158,11 +144,25 @@
                                 <btn class="btn btn-danger btn-wide">Cancel</btn>
                             </a>
                         </div>
-                    </form>
-
+                    <% end %>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+<script>
+    // Change the number of days we show based on the month and year selected
+    $("#month, #year").change(function() {
+        var dateObj = new Date( $("#month").val() + "1 ," + $("#year").val())
+        var numDaysInMonth = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate()
+        $('#day > option').each(function(){
+            if (Number(this.value) <= numDaysInMonth) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        })
+    });
+</script>

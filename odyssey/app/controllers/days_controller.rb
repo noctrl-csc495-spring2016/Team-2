@@ -19,10 +19,32 @@ class DaysController < ApplicationController
   end
   
   def new
-    @START_YEAR = Time.new.year #The current year
-    @NUM_YEARS_TO_DISPLAY = 5
     @day = Day.new
     
+    # All the month options for our form
+    @month_options = [['January', 'January'],['February', 'February'],['March', 'March'],['April', 'April'],
+          ['May', 'May'],['June', 'June'],['July', 'July'],['August', 'August'],['September', 'September'],
+          ['October', 'October'],['November', 'November'],['December', 'December']]
+    
+    # All the day options for our form. Always just provide 31 
+    #   days because the js will handle filtering which one to show 
+    #   based on the month that is selected.
+    @day_options = []
+    (31).times do |d|
+      @day_options[d] = [(d + 1).to_s, (d + 1)]
+    end
+    
+    # All the year options for our form. By default we start with the
+    #   current year. Also are starting by showing up to 5 years in advance.
+    #   Change the number in (#).times in parens to change the number of years
+    #   to show.
+    
+    @year_options = []
+    (5).times do |y|
+      @year_options[y] = [(Time.new.year + y).to_s, (Time.new.year + y)]
+    end
+    
+    # Show the schedule 2 page. Need to change this so we just have new.html.erb
     render 'day/schedule2.html.erb'
   end
   
