@@ -7,10 +7,13 @@ status = "active"
   name  = Faker::Name.name
   email = "entry-user-#{n+1}@csc495.org"
   password = "foobar"
+  password_confirmation = "foobar"
   User.create!(user_id:               "entry-user#{n+1}",
               user_name:              name,
               user_email:             email,
               user_password_digest:   password,
+              password:               password,
+              password_confirmation:  password_confirmation,
               permission_level:       0,
               created_at:             Time.zone.now,
               updated_at:             Time.zone.now,
@@ -22,10 +25,12 @@ end
   name  = Faker::Name.name
   email = "standard-user-#{n+1}@csc495.org"
   password = "foobar"
+    password_confirmation = "foobar"
   User.create!(user_id:               "std-user#{n+1}",
               user_name:              name,
               user_email:             email,
-              user_password_digest:   password,
+              password:               password,
+              password_confirmation:  password_confirmation,
               permission_level:       1,
               created_at:             Time.zone.now,
               updated_at:             Time.zone.now,
@@ -37,10 +42,12 @@ end
   name  = Faker::Name.name
   email = "admin-user-#{n+1}@csc495.org"
   password = "foobar"
+    password_confirmation = "foobar"
   User.create!(user_id:               "admin-user#{n+1}",
               user_name:              name,
               user_email:             email,
-              user_password_digest:   password,
+              password:               password,
+              password_confirmation:  password_confirmation,
               permission_level:       2,
               created_at:             Time.zone.now,
               updated_at:             Time.zone.now,
@@ -58,7 +65,8 @@ end
 User.create!(user_id: "",
               user_name: "Test Admin",
               user_email: "foo@foo.com",
-              user_password_digest: "",
+              password:               "password",
+              password_confirmation:  "password",
               permission_level: 2,
               created_at: Time.zone.now,
               updated_at: Time.zone.now,
