@@ -18,7 +18,7 @@ class DaysControllerTest < ActionController::TestCase
 
   test "should create day" do
     assert_difference('Day.count') do
-      post :create, day: { date: @day.date, number_of_pickups: @day.number_of_pickups }
+      post :create, day: { date: @day.date, number_of_pickups: @day.number_of_pickups, month: @day.month, day: @day.day, year: @day.year }
     end
 
     assert_redirected_to day_path(assigns(:day))

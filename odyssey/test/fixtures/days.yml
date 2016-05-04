@@ -5,15 +5,5 @@ one:
   updated_at: Time.zone.now
   status: 'active'
   month: 6
-  day: 20
+  day: 23
   year: 2016
-  
-two:
-  date:
-  number_of_pickups:
-  created_at:
-  updated_at:
-  status:
-  month:
-  day:
-  year:

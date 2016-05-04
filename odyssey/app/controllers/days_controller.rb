@@ -12,18 +12,20 @@ class DaysController < ApplicationController
   # t.integer  "year"
   
   # Use this action to show all the days on schedule1 screen.
+  # render 'days/schedule1.html.erb'
   def index
     @days = Day.where("date >= ?", Date.today).order('date ASC').all
-    render 'day/schedule1.html.erb'
   end
   
   # Use show action to show a day and all of its coresponding scheduled pickups
+  # render 'days/schedule3.html.erb'
   def show
     @day = Day.find(params[:id])
     @pickups = Pickup.where(:day_id=>@day.id).all
-    render 'day/schedule3.html.erb'
   end
   
+  # Show the screen to show a new day. This screen has calendar and a form.
+  # render 'days/schedule2.html.erb'
   def new
     @day = Day.new
     
@@ -48,9 +50,6 @@ class DaysController < ApplicationController
     (5).times do |y|
       @year_options[y] = [(Time.new.year + y).to_s, (Time.new.year + y)]
     end
-    
-    # Show the schedule 2 page. Need to change this so we just have new.html.erb
-    render 'day/schedule2.html.erb'
   end
   
   # Use this action to return all of the days when called from ajax. Used by 
