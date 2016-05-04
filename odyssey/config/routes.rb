@@ -21,9 +21,10 @@ Rails.application.routes.draw do
   
   get    'days'                   => 'days#index'
   get    'days/new'               => 'days#new'
-  get    'schedule/schedule3'     => 'days#schedule3'
   get    'days/all'               => 'days#all'
   post   'days/create'            => 'days#create'
+  get    'days/:id'               => 'days#show'
+  
   
   get    'template'               => 'pages#template'
   get    'login'   => 'sessions#new'

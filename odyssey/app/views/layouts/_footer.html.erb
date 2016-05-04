@@ -9,10 +9,12 @@
     </div>
 </div>
 <script>
-// borrowed from: https://gist.github.com/daverogers/5375778
-$(document).ready(function() {
+$(document).ready(function() { // borrowed from: https://gist.github.com/daverogers/5375778
 	// get current URL path and assign 'active' class
-	var pathname = window.location.pathname;
-	$('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+	var pathname = '/' + window.location.pathname.split('/')[1];
+	$('.nav > li > a[href^="'+pathname+'"]').parent().addClass('active');
+})
+$("tr[data-link]").click(function() {
+  window.location = this.dataset.link
 })
 </script>
