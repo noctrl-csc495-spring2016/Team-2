@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     #before_action :admin
     before_action :logged_in
     before_action :is_admin
+    
     def index 
         @user = User.all.order("UPPER(user_name)")
     end
@@ -11,8 +12,6 @@ class UsersController < ApplicationController
     def show 
         @user = User.find(params[:id])
     end   
-    
-
     
     def new
         @user = User.new
@@ -24,6 +23,7 @@ class UsersController < ApplicationController
     end
     
     def update
+        debugger;
         @user = User.find(params[:id])
         if @user.update_attributes(user_params)
             flash[:success] = "Successfully updated account"
