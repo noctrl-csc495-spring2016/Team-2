@@ -13,6 +13,17 @@ class Pickup < ActiveRecord::Base
       end
     end
   end
+  
+  def self.to_routes_csv
+    headers = ["Street","City","State","Zip","Country","Notes"]
+    attributes = %w{address donor_city state donor_zip country donor_location_instructions}
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+      all.each do |pickup|
+        csv << attributes.map{ |attr| pickup.send(attr) }
+      end
+    end
+  end
 
   private
   

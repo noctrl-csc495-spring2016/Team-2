@@ -1,4 +1,5 @@
-class ReportsController < ApplicationController  
+class ReportsController < ApplicationController
+  before_action :logged_in
   def donor
       respond_to do |format|
         format.html
@@ -13,5 +14,13 @@ class ReportsController < ApplicationController
 
   def truck
     @days = Day.all
+    
+    respond_to do |format|
+      format.html
+      format.csv {
+        pickups = Pickup.all
+        send_data pickups.to_routes_csv, filename: "routes.csv"
+      }
+    end
   end
 end
