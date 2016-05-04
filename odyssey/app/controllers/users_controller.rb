@@ -2,7 +2,8 @@ class UsersController < ApplicationController
     #before_action :entry, only: [:edit]
     #before_action :standard, only: [:edit]
     #before_action :admin
-    
+    before_action :logged_in
+    before_action :is_admin
     def index 
         @user = User.all.order("UPPER(user_name)")
     end

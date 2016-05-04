@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get    'home/home1'             => 'pages#home1'
   get    'home/home2'             => 'pages#home2'
   get    'home/home3'             => 'pages#home3'
-
+  
+  get    'pickups/index'          => 'pickups#index'
+  
   get    'admin/admin1'           => 'pages#admin1'
   get    'admin/admin2'           => 'pages#admin2'
   get    'admin/admin3'           => 'pages#admin3'
