@@ -1,0 +1,135 @@
+<%= render 'layouts/navbar' %>
+
+<script>
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+        weekends: false,
+        defaultView: 'month',
+        dayClick: function(date, jsEvent, view){
+            // Remove the old selected day by getting the original event source
+            $('#calendar').fullCalendar( 'refetchEvents' );
+            // Add a temp event
+            $('#calendar').fullCalendar( 'renderEvent', {id:'TEMP', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
+            
+            // Create a date object to manipulate
+            var dObj = new Date(date);
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            // Update our select drop-downs
+            $('#month').val(monthNames[dObj.getMonth()]);
+            $('#day').val(dObj.getDate() + 1);
+            $('#year').val(dObj.getFullYear());
+            
+            // Trigger the on change to adjust our selects
+            $( "#month" ).trigger( "change" );
+        },
+        header: {
+          left:   'title',
+          center: '',
+          right:  'today prev,next'
+        }
+    })
+    
+    GetAllDays();
+  });
+
+    function GetAllDays() {
+        var events = [];
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/days/all",
+            success: function(data) {
+                $.each(data, function(key, value){
+                    events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
+                })
+                $('#calendar').fullCalendar( 'addEventSource', events );
+            },
+            error: function(data) {
+                displayError(data.responseText);
+            }
+        });
+    }
+    
+    function displayError(error){
+        var modal = "<div class=\"modal fade\" id=\"errorModal\" role=\"dialog\">" +
+                            "<div class=\"modal-dialog modal-sm\">" +
+                              "<div class=\"modal-content\">" +
+                                "<div class=\"modal-header\">" +
+                                    "<h4 class=\"modal-title\">Error</h4>" +
+                                "</div>" +
+                                "<div class=\"modal-body\">" +
+                                    "<p>"+error+"</p>" +
+                                "</div>" +
+                                "<div class=\"modal-footer\">" +
+                                    "<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">OK</button>" +
+                                "</div>" +
+                              "</div>" +
+                            "</div>" +
+                          "</div>";
+            $( ".container" ).append( modal );
+            $('#errorModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            }).show().on('hidden.bs.modal', function (e) {
+              $(this).remove();
+            });
+    }
+    
+</script>
+
+<div class="container white-container">
+    <div class="row">
+        <%= render 'layouts/flash_messages' %>
+        <div class="col-xs-4 col-xs-offset-1">
+            <h5 class="text-center">Select a day to add it to the schedule.</h5>
+            <div id='calendar' style='width:100%; height:100%; padding-bottom:10%;'></div>
+        </div>
+        <div class="col-xs-6 col-xs-offset-1">
+            <br />
+            <br />
+            <p>To add a day, either select a day on the calendar or manually input the day below: </p>
+            <div class="row">
+                <div class="col-xs-9 col-xs-offset-1">
+                    <%= form_tag(days_create_path, :method=>'post') do %>
+                        <div class="form-group">
+                            Month:
+                            <%= select_tag("month", options_for_select(@month_options, Date::MONTHNAMES[Date.today.month]), :class => 'form-control') %>
+                        </div>
+                        <div class="form-group">
+                            Day:
+                            <%= select_tag("day", options_for_select(@day_options, 1), :class => 'form-control') %>
+                        </div>
+                        <div class="form-group">
+                            Year:
+                            <%= select_tag("year", options_for_select(@year_options, Time.new.year), :class => 'form-control') %>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <%= submit_tag "Create", class: "btn btn-success btn-wide extra-right-margin" %>
+                            <%= link_to "Cancel", days_path, :class => 'btn btn-danger btn-wide' %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Change the number of days we show based on the month and year selected
+    $("#month, #year").change(function() {
+        // Create date object to manipulate
+        var dateObj = new Date( $("#month").val() + "1 ," + $("#year").val())
+        var numDaysInMonth = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate()
+        // Loop through the selects to hide or show the correct ones
+        $('#day > option').each(function(){
+            // If the day is in this month
+            if (Number(this.value) <= numDaysInMonth) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        })
+    });
+</script>

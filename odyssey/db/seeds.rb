@@ -55,7 +55,7 @@ end
 end
 
 # Create a day
-  Day.create!(date:                   Date.today.to_s,
+  Day.create!(date:                   Date.today,
               number_of_pickups:      3,
               created_at:             Time.zone.now,
               updated_at:             Time.zone.now,
@@ -71,3 +71,19 @@ User.create!(user_id: "",
               created_at: Time.zone.now,
               updated_at: Time.zone.now,
               status: status)
+              
+Pickup.create!(
+            day_id:                       1,
+            donor_name:                   "Anthony Rizzo",
+            donor_address_line1:          "1060 W Addison St",
+            donor_city:                   "Chicago",
+            donor_zip:                    "60613",
+            donor_dwelling_type:          "Historic Ball Park",
+            donor_location_instructions:  "Ride the Red Line",
+            donor_phone:                  "(773) 404-2827",
+            donor_email:                  "rizzo@cubs.com",
+            number_of_items:               1,
+            item_description:              "Autographed baseball",
+            created_at:                   Time.zone.now,
+            updated_at:                   Time.zone.now
+)
