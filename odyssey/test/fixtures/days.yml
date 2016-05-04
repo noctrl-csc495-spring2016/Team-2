@@ -1,9 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  date: MyString
-  number_of_pickups: 
-
+  date: '2016-06-23'
+  number_of_pickups: 5
+  created_at: Time.zone.now
+  updated_at: Time.zone.now
+  status: 'active'
+  month: 6
+  day: 20
+  year: 2016
+  
 two:
-  date: MyString
-  number_of_pickups: 
+  date:
+  number_of_pickups:
+  created_at:
+  updated_at:
+  status:
+  month:
+  day:
+  year:

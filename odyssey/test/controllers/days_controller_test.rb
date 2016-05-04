@@ -29,11 +29,6 @@ class DaysControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @day
-    assert_response :success
-  end
-
   test "should update day" do
     patch :update, id: @day, day: { date: @day.date, number_of_pickups: @day.number_of_pickups }
     assert_redirected_to day_path(assigns(:day))
