@@ -1,5 +1,6 @@
 class DaysController < ApplicationController
-  
+  before_action :logged_in
+  before_action :admin_or_standard
   #SCHEMA
   # t.date     "date"
   # t.integer  "number_of_pickups"
