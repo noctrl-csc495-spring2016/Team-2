@@ -11,10 +11,6 @@ Rails.application.routes.draw do
   get    'admin/admin2'           => 'pages#admin2'
   get    'admin/admin3'           => 'pages#admin3'
   
-  get    'reports/report1'        => 'pages#report1'
-  get    'reports/report2'        => 'pages#report2'
-  get    'reports/report3'        => 'pages#report3'
-  
   get    'reports'                => 'reports#reports'
   get    'reports/donor'          => 'reports#donor'
   get    'reports/truck'          => 'reports#truck'
