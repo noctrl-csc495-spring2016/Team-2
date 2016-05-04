@@ -15,4 +15,7 @@ $(document).ready(function() {
 	var pathname = window.location.pathname;
 	$('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
 })
+$("tr[data-link]").click(function() {
+  window.location = this.dataset.link
+})
 </script>

@@ -40,6 +40,9 @@
             url: "/days/all",
             success: function(data) {
                 $.each(data, function(key, value){
+                    console.log(JSON.stringify(value))
+                    //var date = value.year+'-'+value.month+'-'value.day;
+                    //console.log(date)
                     events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
                 })
                 $('#calendar').fullCalendar( 'addEventSource', events );
@@ -80,15 +83,19 @@
 <div class="container white-container">
     <div class="row">
         <%= render 'layouts/flash_messages' %>
+        <div class="col-xs-10 col-xs-offset-1">
+            <h2>Configure Pickup Day</h2>
+            <p>To add a day, either select a day on the calendar or manually input the day below.</p>
+        </div>
+    </div>
+    <br />
+    <div class="row">
         <div class="col-xs-4 col-xs-offset-1">
-            <h5 class="text-center">Select a day to add it to the schedule.</h5>
             <div id='calendar' style='width:100%; height:100%; padding-bottom:10%;'></div>
         </div>
         <div class="col-xs-6 col-xs-offset-1">
-            <br />
-            <br />
-            <p>To add a day, either select a day on the calendar or manually input the day below: </p>
             <div class="row">
+                <br />
                 <div class="col-xs-9 col-xs-offset-1">
                     <%= form_tag(days_create_path, :method=>'post') do %>
                         <div class="form-group">

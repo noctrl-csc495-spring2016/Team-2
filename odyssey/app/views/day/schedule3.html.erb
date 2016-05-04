@@ -1,13 +1,13 @@
 <%= render 'layouts/navbar' %>
 
 <div class='container white-container'>
-    <%= render 'layouts/flash_messages' %>
     <div class="row">
+        <%= render 'layouts/flash_messages' %>
         <div class="col-xs-10 col-xs-offset-1">
-            <p>Select a pickup from the list below to edit.</p>
+            <h2>Pickups for <span class="text-primary"><%= @day.date.strftime("%A, %B %d, %Y") %></span></h2>
+            <p>Select a pickup from the list below to edit it.</p>
         </div>
     </div>
-
     <br />
     <div class="row">
         <div class="col-xs-11 col-xs-offset-1">
@@ -21,20 +21,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% @pickups.each do |pickup| %>
+                    <% if @pickups.any? %>
+                        <% @pickups.each do |pickup| %>
+                            <tr>
+                                <td>
+                                    <%= pickup.donor_name %>
+                                </td>
+                                <td>
+                                    <%= pickup.donor_city %>
+                                </td>
+                                <td>
+                                    <%= pickup.number_of_items %>
+                                </td>
+                                <td>
+                                    <%= pickup.item_description %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    <% else %>
                         <tr>
-                            <td>
-                                <%=  %>
-                            </td>
-                            <td>
-                                <%=  %>
-                            </td>
-                            <td>
-                                <%=  %>
-                            </td>
-                            <td>
-                                <%=  %>
-                            </td>
+                            <td colspan="4">There are no pickups scheduled for this day. View the <a href="/home/home1">Bullpen</a> to schedule some.</td>
                         </tr>
                     <% end %>
                 </tbody>

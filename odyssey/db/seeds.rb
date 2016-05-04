@@ -49,10 +49,13 @@ end
 
 # Create a day
   Day.create!(date:                   Date.today,
-              number_of_pickups:      3,
+              number_of_pickups:      1,
               created_at:             Time.zone.now,
               updated_at:             Time.zone.now,
-              status:                 status)
+              status:                 status,
+              month:                  Time.new.month,
+              day:                    Time.new.day,
+              year:                   Time.new.year)
 
 # Create a blank admin user, so that by default, while developing, login will still work
 User.create!(user_id: "",

@@ -6,16 +6,21 @@ class DaysController < ApplicationController
   # t.datetime "created_at",        null: false
   # t.datetime "updated_at",        null: false
   # t.string   "status"
+  # t.integer  "month"
+  # t.integer  "day"
+  # t.integer  "year"
   
   # Use this action to show all the days on schedule1 screen.
   def index
-    @days = Day.all
+    @days = Day.order('date ASC').all
     render 'day/schedule1.html.erb'
   end
   
   # Use show action to show a day and all of its coresponding scheduled pickups
   def show
     @day = Day.find(params[:id])
+    @pickups = Pickup.where(:day_id=>@day.id).all
+    render 'day/schedule3.html.erb'
   end
   
   def new
@@ -70,11 +75,12 @@ class DaysController < ApplicationController
     
     date = (params[:month]+" "+params[:day]+", "+params[:year]).to_date
     
-    if Day.find_by_date(date)
+    if Day.find_by_month_and_day_and_year(Date::MONTHNAMES.index(params[:month]), params[:day], params[:year])
       flash[:danger] = "That day is already configured as a pickup day"
       redirect_to '/days/new'
     else
       @day = Day.new(day_params)
+      @day.month = Date::MONTHNAMES.index(params[:month]) 
       @day.date = date
       @day.number_of_pickups = 0
       @day.status = "active"
