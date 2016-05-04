@@ -6,6 +6,11 @@
         weekends: false,
         defaultView: 'month',
         dayClick: function(date, jsEvent, view){
+            // Would like to put this in a seperate function to allow us to fake a day click when
+            //    the user picks a day from the boxes, however, by hiding the days in the select
+            //    we are triggering the .change event on #day everytime which is the event we would
+            //    need to use in order to register a fake click.. TBD
+            
             // Remove the old selected day by getting the original event source
             $('#calendar').fullCalendar( 'refetchEvents' );
             // Add a temp event
@@ -28,7 +33,6 @@
           right:  'today prev,next'
         }
     })
-    
     GetAllDays();
   });
 
@@ -40,44 +44,16 @@
             url: "/days/all",
             success: function(data) {
                 $.each(data, function(key, value){
-                    console.log(JSON.stringify(value))
-                    //var date = value.year+'-'+value.month+'-'value.day;
-                    //console.log(date)
+                    //console.log(JSON.stringify(value))
                     events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
                 })
                 $('#calendar').fullCalendar( 'addEventSource', events );
             },
             error: function(data) {
-                displayError(data.responseText);
+                alert(data.responseText);
             }
         });
     }
-    
-    function displayError(error){
-        var modal = "<div class=\"modal fade\" id=\"errorModal\" role=\"dialog\">" +
-                            "<div class=\"modal-dialog modal-sm\">" +
-                              "<div class=\"modal-content\">" +
-                                "<div class=\"modal-header\">" +
-                                    "<h4 class=\"modal-title\">Error</h4>" +
-                                "</div>" +
-                                "<div class=\"modal-body\">" +
-                                    "<p>"+error+"</p>" +
-                                "</div>" +
-                                "<div class=\"modal-footer\">" +
-                                    "<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">OK</button>" +
-                                "</div>" +
-                              "</div>" +
-                            "</div>" +
-                          "</div>";
-            $( ".container" ).append( modal );
-            $('#errorModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            }).show().on('hidden.bs.modal', function (e) {
-              $(this).remove();
-            });
-    }
-    
 </script>
 
 <div class="container white-container">

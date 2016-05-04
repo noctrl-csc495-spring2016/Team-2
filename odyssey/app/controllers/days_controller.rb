@@ -12,7 +12,7 @@ class DaysController < ApplicationController
   
   # Use this action to show all the days on schedule1 screen.
   def index
-    @days = Day.order('date ASC').all
+    @days = Day.where("date >= ?", Date.today).order('date ASC').all
     render 'day/schedule1.html.erb'
   end
   
@@ -43,7 +43,6 @@ class DaysController < ApplicationController
     #   current year. Also are starting by showing up to 5 years in advance.
     #   Change the number in (#).times in parens to change the number of years
     #   to show.
-    
     @year_options = []
     (5).times do |y|
       @year_options[y] = [(Time.new.year + y).to_s, (Time.new.year + y)]
@@ -53,15 +52,10 @@ class DaysController < ApplicationController
     render 'day/schedule2.html.erb'
   end
   
-  # /schedule/schedule3
-  def schedule3
-    render 'day/schedule3.html.erb'
-  end
-  
   # Use this action to return all of the days when called from ajax. Used by 
   #   the calendar only.
   def all
-     @days = Day.all
+     @days = Day.where("date >= ?", Date.today).all
      respond_to do |format|
       format.json { render json: @days }
     end
@@ -72,11 +66,13 @@ class DaysController < ApplicationController
   #   pickups 0, created at and updated at to right now, and set the record to
   #   active.
   def create
-    
     date = (params[:month]+" "+params[:day]+", "+params[:year]).to_date
     
     if Day.find_by_month_and_day_and_year(Date::MONTHNAMES.index(params[:month]), params[:day], params[:year])
       flash[:danger] = "That day is already configured as a pickup day"
+      redirect_to '/days/new'
+    elsif date < Date.today
+      flash[:danger] = "The day you entered is in the past! Please enter a day that is in the future."
       redirect_to '/days/new'
     else
       @day = Day.new(day_params)
@@ -94,19 +90,12 @@ class DaysController < ApplicationController
         flash[:danger] = "Day could not be added"
         redirect_to '/days/new'
       end
-
     end
   end
   
-  # Update :number_of_pickups, :updated_at, :status
-  def update
-    # Set the updated at and maybe the status
-    @day = Day.find(params[:id])
-    if @day.update_attributes(day_params)
-      redirect_to @day
-    else
-      render 'edit'
-    end
+  # To be implemented. Use to unschedule a pickup day
+  def delete
+    # peace and quiet
   end
   
   private
