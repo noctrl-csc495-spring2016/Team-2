@@ -1,5 +1,5 @@
 module SessionsHelper
-
+  include UsersHelper
   # Logs in the given user.
   def log_in(user)
     session[:user_id] = user.id
@@ -17,6 +17,19 @@ module SessionsHelper
     !current_user.nil?
   end
   
+  def is_admin
+    if !is_admin?
+      flash[:danger] = "You are not an admin"
+      redirect_to '/home/home1'
+    end
+  end
+  
+  def admin_or_standard
+    if !is_admin? && !is_standard?
+      flash[:danger] = "You do not have permission to view this page"
+      redirect_to '/home/home1'
+    end
+  end
   
   # Redirects the user to the login page if they are not logged in.
   #  This function is intended to be used as a before_action callback.

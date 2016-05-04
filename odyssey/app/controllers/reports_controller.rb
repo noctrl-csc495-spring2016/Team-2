@@ -1,5 +1,7 @@
-class ReportsController < ApplicationController
+class ReportsController < ApplicationController  
   before_action :logged_in
+  before_action :admin_or_standard
+
   def donor
       respond_to do |format|
         format.html
