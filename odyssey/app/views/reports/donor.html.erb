@@ -9,8 +9,7 @@
       <%= select_year(Date.today, {:start_year => Time.now.year, :end_year => 2016},
        {:class => "form-control"}) %>
       File:
-      <%= text_field_tag 'filename', nil, class: 'form-control'%>
-  
+      <%= text_field_tag 'filename', nil, {:class => 'form-control', :placeholder => 'donor.csv'}%>
       <%= submit_tag 'Export', class: 'btn btn-success btn-wide extra-right-margin' %>
       <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
       <% end %>
