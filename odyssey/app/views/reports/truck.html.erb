@@ -2,12 +2,13 @@
 <div class="container">
   <div class="row">
     <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
-      <%= form_tag('/reports/truck.csv', :method => 'get') do %>
+      <%= form_tag('/reports/truck', :method => 'get') do %>
       Pickup Day:
       <%= select_tag 'pickupday', options_for_select(@days.collect{|d| [d.date.strftime("%a %b %d"), d.date]}),
       class: "form-control" %>
-      <%= submit_tag 'Routes CSV', class: 'btn btn-success btn-wide extra-right-margin' %>
+     <%= submit_tag 'Routes CSV', {:name => 'csv',:class => 'btn btn-success btn-wide extra-right-margin'} %>
       <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+      <%= submit_tag 'Routes PDF', {:name => 'pdf',:class => 'btn btn-success btn-wide extra-right-margin'} %>
       <% end %>
     </div>
   </div>
