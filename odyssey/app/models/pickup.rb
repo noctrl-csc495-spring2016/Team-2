@@ -24,6 +24,17 @@ class Pickup < ActiveRecord::Base
       end
     end
   end
+  
+  def self.to_pdf
+    pdf = Prawn::Document.new
+    data = [["Name/Contact", "Address", "Donor Items/Notes"]]
+    all.each do |pickup|
+      data += [[pickup.donor_name, pickup.donor_city, pickup.donor_email]]
+    end
+    
+    pdf.table(data, :header => true)
+    pdf.render
+  end
 
   private
   

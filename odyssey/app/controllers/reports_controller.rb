@@ -16,12 +16,24 @@ class ReportsController < ApplicationController
 
   def truck
     respond_to do |format|
-      format.html{
-        @days = Day.all
-      }
+      format.html {
+        if params[:pdf]
+          #redirect_to "/reports/truck.pdf"
+          redirect_to reports_truck_path(pickupday: params[:pickupday], format: "pdf")
+        elsif params[:csv]
+          #redirect_to "/reports/truck.csv"
+          redirect_to reports_truck_path(pickupday: params[:pickupday], format: "csv")
+        else
+          @days = Day.all
+        end
+      } 
       format.csv {
         pickups = Pickup.joins(:day).where("date = ?", params[:pickupday])
         send_data pickups.to_routes_csv, filename: "routes.csv"
+      }
+      format.pdf {
+        pickups = Pickup.joins(:day).where("date = ?", params[:pickupday])
+        send_data pickups.to_pdf, filename: 'test.pdf', type: "application/pdf"
       }
     end
   end
