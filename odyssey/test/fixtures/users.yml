@@ -1,21 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+bill:
+  user_id: 'admin-user'
+  user_name: 'Bill'
+  user_email: 'admin@example.com'
+  user_password_digest: <%= User.digest('password') %>
+  password_digest: <%= User.digest('password') %>
+  permission_level: 2
+  status: 'active'
+  created_at: '2016-01-15 00:00:00'
+  updated_at: '2016-01-15 00:00:00'
 
-one:
-  user_id: MyString
-  user_email: MyString
-  user_password_digest: MyString
-  user_name: MyString
-  perission_level: 
-  created_at: 2016-04-24 21:26:42
-  updated_at: 2016-04-24 21:26:42
-  status: MyString
+archer:
+  user_id: 'std-user'
+  user_name: 'Archer'
+  user_email: 'std@example.com'
+  user_password_digest: <%= User.digest('password') %>
+  password_digest: <%= User.digest('password') %>
+  permission_level: 1
+  status: 'active'
+  created_at: '2016-01-15 00:00:00'
+  updated_at: '2016-01-15 00:00:00'
 
-two:
-  user_id: MyString
-  user_email: MyString
-  user_password_digest: MyString
-  user_name: MyString
-  perission_level: 
-  created_at: 2016-04-24 21:26:42
-  updated_at: 2016-04-24 21:26:42
-  status: MyString
+guy:
+  user_id: 'entry-user'
+  user_name: 'Truck Guy'
+  user_email: 'guy@example.com'
+  user_password_digest: <%= User.digest('password') %>
+  password_digest: <%= User.digest('password') %>
+  permission_level: 0
+  status: 'active'
+  created_at: '2016-01-15 00:00:00'
+  updated_at: '2016-01-15 00:00:00'
