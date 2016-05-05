@@ -2,48 +2,71 @@ require 'test_helper'
 
 class DaysControllerTest < ActionController::TestCase
   setup do
+    @user = users(:bill)
     @day = days(:one)
   end
 
   test "should get index" do
+    log_in_as(users(:bill))
+    
     get :index
     assert_response :success
     assert_not_nil assigns(:days)
   end
 
   test "should get new" do
+    log_in_as(users(:bill))
+    
     get :new
     assert_response :success
   end
 
   test "should create day" do
+    log_in_as(users(:bill))
+    
     assert_difference('Day.count') do
-      post :create, day: { date: @day.date, number_of_pickups: @day.number_of_pickups }
+      post :create, { month: @day.month, day: @day.day, year: @day.year }
     end
-
-    assert_redirected_to day_path(assigns(:day))
+  
+    assert_redirected_to :index
   end
 
   test "should show day" do
+    log_in_as(users(:bill))
+    
     get :show, id: @day
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @day
-    assert_response :success
-  end
-
-  test "should update day" do
-    patch :update, id: @day, day: { date: @day.date, number_of_pickups: @day.number_of_pickups }
-    assert_redirected_to day_path(assigns(:day))
-  end
-
-  test "should destroy day" do
-    assert_difference('Day.count', -1) do
-      delete :destroy, id: @day
+  #test "should destroy day" do
+  #  assert_difference('Day.count', -1) do
+  #    delete :destroy, id: @day
+  #  end
+  #
+  #  assert_redirected_to days_path
+  #end
+  
+  test "cant duplicate a day" do
+    log_in_as(users(:bill))
+    
+    assert_difference('Day.count') do
+      post :create, { month: @day.month, day: @day.day, year: @day.year }
     end
-
-    assert_redirected_to days_path
+    
+    assert_no_difference('Day.count') do
+      post :create, { month: @day.month, day: @day.day, year: @day.year }
+    end
+    
+    assert_redirected_to :new
+  end
+  
+  test "cant enter a day in the past" do
+    log_in_as(users(:bill))
+    
+    assert_no_difference('Day.count') do
+      post :create, { month: 'January', day: 01, year: 1990 }
+    end
+    
+    assert_redirected_to :days_new
   end
 end
