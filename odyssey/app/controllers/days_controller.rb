@@ -84,7 +84,7 @@ class DaysController < ApplicationController
 
       if @day.save
         flash[:success] = "The day was succesfully added"
-        redirect_to '/days' # @day
+        redirect_to '/days'
       else
         flash[:danger] = "Day could not be added"
         redirect_to '/days/new'
