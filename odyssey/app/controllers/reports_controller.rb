@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController  
   before_action :logged_in
   before_action :admin_or_standard
+
   def donor
       respond_to do |format|
         format.html
@@ -14,6 +15,14 @@ class ReportsController < ApplicationController
   end
 
   def truck
-    @days = Day.all
+    respond_to do |format|
+      format.html{
+        @days = Day.all
+      }
+      format.csv {
+        pickups = Pickup.joins(:day).where("date = ?", params[:pickupday])
+        send_data pickups.to_routes_csv, filename: "routes.csv"
+      }
+    end
   end
 end
