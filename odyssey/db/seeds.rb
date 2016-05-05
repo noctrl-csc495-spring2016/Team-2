@@ -79,6 +79,7 @@ Pickup.create!(
             day_id:                       1,
             donor_name:                   "Anthony Rizzo",
             donor_address_line1:          "1060 W Addison St",
+            donor_address_line2:          "Suite 101",
             donor_city:                   "Chicago",
             donor_zip:                    "60613",
             donor_dwelling_type:          "Historic Ball Park",
@@ -87,6 +88,23 @@ Pickup.create!(
             donor_email:                  "rizzo@cubs.com",
             number_of_items:               1,
             item_description:              "Autographed baseball",
+            created_at:                   Time.zone.now,
+            updated_at:                   Time.zone.now
+)
+
+Pickup.create!(
+            day_id:                       1,
+            donor_name:                   "Mark Christianson",
+            donor_address_line1:          "1233 Chanticleer Ave",
+            donor_address_line2:          "Apartment D",
+            donor_city:                   "Bolingbrook",
+            donor_zip:                    "55555",
+            donor_dwelling_type:          "Mini-House",
+            donor_location_instructions:  "Beware of the Chihuahua",
+            donor_phone:                  "(555) 555-5555",
+            donor_email:                  "mark.christianson@mheducation.com",
+            number_of_items:               5,
+            item_description:              "table/4 chairs, china cabinet (matching set)",
             created_at:                   Time.zone.now,
             updated_at:                   Time.zone.now
 )

@@ -25,14 +25,25 @@ class Pickup < ActiveRecord::Base
     end
   end
   
-  def self.to_pdf
+  def self.to_pdf(day)
+    pickupdate = Date.parse(day)
     pdf = Prawn::Document.new
-    data = [["Name/Contact", "Address", "Donor Items/Notes"]]
+    pdf.image "#{Rails.root}/app/assets/images/SC_logo.png", :width => 200, :position => :right
+    pdf.move_down 10
+    pdf.text  pickupdate.strftime("Pickup Schedule for %A %b %d, %Y") , 
+                    :align => :center, :style => :bold, :size => 14
+    pdf.move_down 10
+    data = [["", "<b>Name/Contact</b>", "<b>Address</b>", "<b>Donor Items/Notes</b>"]]
+    i = 1;
     all.each do |pickup|
-      data += [[pickup.donor_name, pickup.donor_city, pickup.donor_email]]
+      data += [[i,"#{pickup.donor_name}\n#{pickup.donor_phone}",
+                  "#{pickup.donor_address_line1}\n#{pickup.donor_address_line2}\n#{pickup.donor_city}, IL #{pickup.donor_zip}",
+                  "#{pickup.item_description}\nDonor: '#{pickup.donor_location_instructions}'"]]
+      i += 1
     end
     
-    pdf.table(data, :header => true)
+    pdf.table(data, :header => true, :cell_style => { :size => 10, :inline_format => true},
+                    :position => :center, :column_widths => [15,130,135,240])
     pdf.render
   end
 
@@ -51,6 +62,6 @@ class Pickup < ActiveRecord::Base
   end
   
   def address
-    "#{donor_address_line1} #{donor_address_line2}"
+    "#{donor_address_line1}, #{donor_address_line2}"
   end
 end
