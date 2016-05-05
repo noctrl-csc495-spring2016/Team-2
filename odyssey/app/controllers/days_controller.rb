@@ -21,7 +21,7 @@ class DaysController < ApplicationController
   # render 'days/schedule3.html.erb'
   def show
     @day = Day.find(params[:id])
-    @pickups = Pickup.where(:day_id=>@day.id).all
+    @pickups = @day.pickups
   end
   
   # Show the screen to show a new day. This screen has calendar and a form.
@@ -66,25 +66,24 @@ class DaysController < ApplicationController
   #   pickups 0, created at and updated at to right now, and set the record to
   #   active.
   def create
-    date = (params[:month]+" "+params[:day]+", "+params[:year]).to_date
+    @day = Day.new(day_params)
+    @day.month = Date::MONTHNAMES.index(params[:month])
+    @day.date = ("#{params[:month]} #{params[:day]} #{params[:year]}").to_date
     
-    if Day.find_by_month_and_day_and_year(Date::MONTHNAMES.index(params[:month]), params[:day], params[:year])
+    if !Day.where("month = ? AND day = ? AND year = ?", @day.month, @day.day, @day.year).empty?
       flash[:danger] = "That day is already configured as a pickup day"
       redirect_to '/days/new'
-    elsif date < Date.today
+    elsif @day.date < Date.today
       flash[:danger] = "The day you entered is in the past! Please enter a day that is in the future."
       redirect_to '/days/new'
     else
-      @day = Day.new(day_params)
-      @day.month = Date::MONTHNAMES.index(params[:month]) 
-      @day.date = date
       @day.number_of_pickups = 0
       @day.status = "active"
       @day.created_at = Time.zone.now
       @day.updated_at = Time.zone.now
 
       if @day.save
-        flash[:success] = "Day added successfully"
+        flash[:success] = "The day was succesfully added"
         redirect_to '/days' # @day
       else
         flash[:danger] = "Day could not be added"
@@ -101,6 +100,6 @@ class DaysController < ApplicationController
   private
     # Make sure we only accept params we want
     def day_params
-      params.permit(:month, :day, :year, :date, :number_of_pickups, :status)  
+      params.permit(:month, :day, :year, :date)  
     end
 end

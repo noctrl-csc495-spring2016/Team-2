@@ -2,8 +2,7 @@ require 'test_helper'
 
 class DayTest < ActiveSupport::TestCase
   def setup
-    @day = Day.new(date: Date.today, number_of_pickups: 0, created_at: Time.zone.now, updated_at: Time.zone.now, 
-                        status: "active", month: Time.new.month, day: Time.new.day, year: Time.new.year)
+    @day = days(:one)
   end
 
   test "should be valid" do

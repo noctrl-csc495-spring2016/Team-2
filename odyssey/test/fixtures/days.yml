@@ -1,9 +1,9 @@
 one:
-  date: '2016-06-23'
-  number_of_pickups: 5
-  created_at: Time.zone.now
-  updated_at: Time.zone.now
-  status: 'active'
   month: 6
   day: 23
   year: 2016
+  date: '2016-06-23'
+  status: 'active'
+  number_of_pickups: 0
+  created_at: '2016-01-15 00:00:00'
+  updated_at: '2016-01-15 00:00:00'
