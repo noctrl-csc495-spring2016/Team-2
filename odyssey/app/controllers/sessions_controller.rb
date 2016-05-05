@@ -10,12 +10,9 @@ class SessionsController < ApplicationController
   def create
     # Find the user by their user ID
     user = User.find_by(user_id: params[:session][:user_id])
-    # TODO: Will need to actually authenticate the user, once the Users
-    #  controller is finished.
-    #if user && user.authenticate(params[:session][:password])
     
-    # If the user exists, send them to the home1 page
-    if user
+    # If the user exists and the password is valid, send them to the home1 page
+    if user && user.authenticate(params[:session][:password])
       # Store the user_id in the session
       log_in user
       redirect_to '/home/home1'
