@@ -35,21 +35,6 @@ class PagesController < ApplicationController
     render 'pages/admin/admin3.html'
   end
   
-  # /reports/report1
-  def report1
-    render 'pages/reports/report1.html'
-  end
-  
-  # /reports/report2
-  def report2
-    render 'pages/reports/report2.html'
-  end
-  
-  # /reports/report3
-  def report3
-    render 'pages/reports/report3.html'
-  end
-  
   # /template
   def template
   end

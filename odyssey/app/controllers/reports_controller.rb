@@ -15,12 +15,12 @@ class ReportsController < ApplicationController
   end
 
   def truck
-    @days = Day.all
-    
     respond_to do |format|
-      format.html
+      format.html{
+        @days = Day.all
+      }
       format.csv {
-        pickups = Pickup.all
+        pickups = Pickup.joins(:day).where("date = ?", params[:pickupday])
         send_data pickups.to_routes_csv, filename: "routes.csv"
       }
     end
