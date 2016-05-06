@@ -25,12 +25,12 @@ Rails.application.routes.draw do
   
   
   get    'template'               => 'pages#template'
-  get    'login'   => 'sessions#new'
-  post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
+  get    'login'                  => 'sessions#new'
+  post   'login'                  => 'sessions#create'
+  delete 'logout'                 => 'sessions#destroy'
   
-  get 'users/index'  => 'users#index'
-  get 'profile' => 'users#edit'
+  get    'users/index'            => 'users#index'
+  
   resources :pickups
   resources :users
 end

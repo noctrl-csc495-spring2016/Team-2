@@ -1,13 +1,30 @@
 <%=render 'layouts/navbar' %>
 <div class="container">
-  <div class="row">
-    <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
-      <%= form_tag('/reports', :method => 'get') do %>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 well">
+                <h2 class="text-center">Truck Reports</h2>
+                <p class="text-center">Select a pickup date below to export 
+                the daily truck report or MapQuest route information.</p>
+                <br>
+      <%= form_tag('/reports/truck', :method => 'get') do %>
+      <div class="form-group">
       Pickup Day:
-      <%= select_tag 'day', options_for_select(@days.collect{|d| [d.date]}) %>
-
-      <%= submit_tag 'Export', class: 'btn btn-success btn-wide extra-right-margin' %>
+      <%= select_tag 'pickupday', options_for_select(@days.collect{|d| [d.date.strftime("%b %-d"), d.date]}),
+      class: "form-control" %>
+      </div>
+      <br>
+      <div class="form-group">
+      <%= radio_button_tag 'pickup', 'pdf', true%>
+      <%= label_tag 'pickup_pdf', '&nbsp;Truck Report'.html_safe %>
+      <br>
+      <%= radio_button_tag 'pickup', 'csv'%>
+      <%= label_tag 'pickup_csv', '&nbsp;MapQuest Route'.html_safe %>
+      </div>
+      <br>
+      <div class="form-group">
+      <%= submit_tag 'Export', {:class => 'btn btn-success btn-wide extra-right-margin'} %>
       <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+     </div>
       <% end %>
     </div>
   </div>
