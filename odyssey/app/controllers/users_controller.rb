@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
-    #before_action :entry, only: [:edit]
-    #before_action :standard, only: [:edit]
-    #before_action :admin
     before_action :logged_in
-    before_action :is_admin
-    
+    before_action :is_admin, except: [:show,:update, :edit]
+
     def index 
         @user = User.all.order("UPPER(user_name)")
+    end
+    
+    def edit
+        @user = current_user
     end
     
     def show 
@@ -19,23 +20,34 @@ class UsersController < ApplicationController
     
     def destroy
         User.find(params[:id]).destroy
-        redirect_to users_url, notice: "Succesfully deleted account"
+        flash[:success] = "Successfully deleted account"
+        redirect_to users_url
     end
     
     def update
-        debugger;
         @user = User.find(params[:id])
-        if @user.update_attributes(user_params)
-            flash[:success] = "Successfully updated account"
-          redirect_to users_url
+        if(@user.permission_level == 2)
+            if @user.update_attributes(admin_params)
+                flash[:success] = "Successfully updated account"
+              redirect_to users_url
+            else
+              flash[:danger] = "Password is invalid"
+              redirect_to action: "show"
+            end    
         else
-          flash[:danger] = "Password is invalid"
-          redirect_to action: "show"
-        end    
+            if @user.update_attributes(user_params)
+                flash[:success] = "Successfully updated account"
+              redirect_to users_url
+            else
+              flash[:danger] = "Password is invalid"
+              redirect_to action: "show"
+            end   
+        end
+            
     end
     
     def create
-        @user = User.new(user_params)
+        @user = User.new(admin_params)
         if @user.save
           flash[:success] = "Successfully updated account"
           redirect_to action: "index"
@@ -47,7 +59,12 @@ class UsersController < ApplicationController
     
     private
     
-    def user_params
+    def admin_params
       params.require(:user).permit(:user_name, :user_email, :permission_level, :password, :password_confirmation)
     end
+    
+    def user_params
+        params.require(:user).permit(:user_name, :user_email, :password, :password_confirmation)
+    end
+        
 end

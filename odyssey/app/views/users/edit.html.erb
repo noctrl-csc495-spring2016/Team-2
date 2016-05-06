@@ -1,0 +1,40 @@
+<% provide(:title, @user.user_name) %>
+<body>
+<%= render 'layouts/navbar' %>
+<!-- Begin main content -->
+<div class="container">
+    <div class="row">
+        <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
+        <h4 class="text-center">Manage User</h4>
+            <%= form_for (@user), url: {action: "update"}, html: {class: "nifty form"} do |f| %>
+                        <%= render 'layouts/flash_messages' %>
+
+                <br>
+                <b>User Name: </b>
+                <%= @user.user_name %>
+                </br>
+                
+                <br>
+                <b>Email: </b>
+                <%= @user.user_email %>
+                </br>
+                 
+                <br> 
+                <b>Change User Level: </b>
+                <%= @user.permission_level %>
+                </br>
+                <br>
+                <%= f.label :password, "New Password:     "%>
+                <%= f.password_field :password, class: 'form-control' %>
+              
+                <%= f.label :password_confirmation, "Confirm:     " %>
+                <%= f.password_field :password_confirmation, class: 'form-control' %>
+                </br>
+              
+                <%= f.submit "Update Account", class: "btn btn-primary" %>
+                <%= link_to "Cancel", users_index_path, class: "btn btn-primary" %>
+            <% end %>
+            </div>
+    </div>
+</div>
+</h1>
