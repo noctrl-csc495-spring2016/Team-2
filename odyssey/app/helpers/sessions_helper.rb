@@ -49,4 +49,12 @@ module SessionsHelper
     #  (now mistaken) assumption that the user is still logged in.
     @current_user = nil
   end
+  
+  def should_view_user(uid)
+    if current_user.id != uid && !is_admin?
+      flash[:danger] = "You are not authorized to view this page"
+      redirect_to '/home/home1'
+    end
+  end
+  
 end

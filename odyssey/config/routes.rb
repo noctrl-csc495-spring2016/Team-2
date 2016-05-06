@@ -30,8 +30,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   
   get 'users/index'  => 'users#index'
-
-  
+  get 'profile' => 'users#edit'
   resources :pickups
   resources :users
 end

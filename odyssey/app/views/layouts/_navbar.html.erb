@@ -14,7 +14,10 @@
       Accounts <span class="caret"></span>
     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/admin/admin1">Settings</a></li>
+                        <% if current_user.permission_level == 2%>
+                            <li><%= link_to "Index", users_index_path %></li>
+                        <% end %>
+                        <li><%= link_to "Profile", edit_user_path(current_user.id) %></li>
                         <li><%= link_to "Log out", logout_path, method: "delete" %></li>
                     </ul>
                 </li>
