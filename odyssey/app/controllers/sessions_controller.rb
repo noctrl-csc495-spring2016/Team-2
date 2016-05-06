@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # Store the user_id in the session
       log_in user
-      redirect_to '/home/home1'
+      redirect_to pickups_path
     else
       # Otherwise, keep them on the login page.
       flash.now[:danger] = 'Invalid user ID/password combination'
