@@ -17,9 +17,9 @@ class ReportsController < ApplicationController
   def truck
     respond_to do |format|
       format.html {
-        if params[:pdf]
+        if params[:pickup] == 'pdf'
           redirect_to reports_truck_path(pickupday: params[:pickupday], format: "pdf")
-        elsif params[:csv]
+        elsif params[:pickup] == 'csv'
           redirect_to reports_truck_path(pickupday: params[:pickupday], format: "csv")
         else
           @days = Day.all

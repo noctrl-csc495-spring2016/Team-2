@@ -9,12 +9,22 @@
       <%= form_tag('/reports/truck', :method => 'get') do %>
       <div class="form-group">
       Pickup Day:
-      <%= select_tag 'pickupday', options_for_select(@days.collect{|d| [d.date.strftime("%b %d"), d.date]}),
+      <%= select_tag 'pickupday', options_for_select(@days.collect{|d| [d.date.strftime("%b %-d"), d.date]}),
       class: "form-control" %>
       </div>
-     <%= submit_tag 'Routes CSV', {:name => 'csv',:class => 'btn btn-success btn-wide extra-right-margin'} %>
+      <br>
+      <div class="form-group">
+      <%= radio_button_tag 'pickup', 'pdf', true%>
+      <%= label_tag 'pickup_pdf', '&nbsp;Truck Report'.html_safe %>
+      <br>
+      <%= radio_button_tag 'pickup', 'csv'%>
+      <%= label_tag 'pickup_csv', '&nbsp;MapQuest Route'.html_safe %>
+      </div>
+      <br>
+      <div class="form-group">
+      <%= submit_tag 'Export', {:class => 'btn btn-success btn-wide extra-right-margin'} %>
       <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
-      <%= submit_tag 'Routes PDF', {:name => 'pdf',:class => 'btn btn-success btn-wide extra-right-margin'} %>
+     </div>
       <% end %>
     </div>
   </div>
