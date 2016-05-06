@@ -20,14 +20,14 @@ module SessionsHelper
   def is_admin
     if !is_admin?
       flash[:danger] = "You are not an admin"
-      redirect_to '/home/home1'
+      redirect_to pickups_path
     end
   end
   
   def admin_or_standard
     if !is_admin? && !is_standard?
       flash[:danger] = "You do not have permission to view this page"
-      redirect_to '/home/home1'
+      redirect_to pickups_path
     end
   end
   
