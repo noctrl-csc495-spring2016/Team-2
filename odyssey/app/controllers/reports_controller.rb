@@ -22,7 +22,7 @@ class ReportsController < ApplicationController
         elsif params[:pickup] == 'csv'
           redirect_to reports_truck_path(pickupday: params[:pickupday], format: "csv")
         else
-          @days = Day.all
+          @days =  Day.where("date >= ?", Date.today).order('date ASC') #order(UPPER(value))
         end
       } 
       format.csv {
