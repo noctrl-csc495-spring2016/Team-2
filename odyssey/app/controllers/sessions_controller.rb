@@ -2,7 +2,12 @@ class SessionsController < ApplicationController
   # Logging out is only allowed if the user is actually logged in
   before_action :logged_in, only: [:destroy]
   
+  # If the user is already logged in, they should be routed to the homepage.
+  #  Otherwise, render the login screen
   def new
+    if logged_in?
+      redirect_to pickups_path
+    end
   end
   
   # Create will log the user in, or display a message if the login attempt
