@@ -33,6 +33,7 @@ class ReportsController < ApplicationController
         pickups = Pickup.joins(:day).where("date = ?", params[:pickupday])
         send_data pickups.to_pdf(params[:pickupday]), filename: 'pickups.pdf', type: "application/pdf"
       }
+    
     end
   end
 end
