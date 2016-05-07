@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # Store the user_id in the session
       log_in user
+      flash[:success] = "Welcome #{user.user_name}"
       redirect_to pickups_path
     else
       # Otherwise, keep them on the login page.
