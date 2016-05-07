@@ -1,1 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  day_id: 1
+  donor_name: 'Billy Bob'
+  donor_address_line1: 'addr1'
+  donor_address_line2: 'addr2'
+  donor_city: 'naperville'
+  donor_zip: 60540
+  donor_dwelling_type: 'apt'
+  donor_location_instructions: '1st floor 113'
+  donor_phone: '5555555555'
+  donor_email: 'a@e.c'
+  number_of_items: 5
+  item_description: 'desc'
+  other_notes: 'other notes'
+  pickup_time: '5p'
+  status: 'active'

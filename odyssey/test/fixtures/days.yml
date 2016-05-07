@@ -1,5 +1,5 @@
 one:
-  month: 6
+  month: 'June'
   day: 23
   year: 2016
   date: '2016-06-23'
