@@ -5,6 +5,7 @@ class SessionLoginLogoutTest < ActionDispatch::IntegrationTest
   def setup
     @user_admin = users(:bill)
   end
+  
   # Check that the root URL is the login page
   test "Root URL is login page" do
     get root_path
@@ -95,6 +96,5 @@ class SessionLoginLogoutTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
     assert_not flash.empty?
   end
-  
   
 end
