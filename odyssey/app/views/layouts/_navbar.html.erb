@@ -7,24 +7,28 @@
                 </div>
             </div>
             <ul class="nav nav-pills navbar-right custom-navbar">
-                <li role="presentation"><a href="/pickups">Home</a></li>
-                <li role="presentation"><a href="/days">Schedule</a></li>
-                <li role="presentation"><a href="/reports">Reports</a></li>
-                <% #logic to test if an admin %>
-                    <li role="presentation"><a href="/users">Admin</a></li>
-                <% #end %>
-                <li role="presentation" class="dropdown"> 
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        Account <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <% if current_user.permission_level == 2%>
-                            <li><%= link_to "Index", users_index_path %></li>
-                        <% end %>
-                        <li><%= link_to "Profile", edit_user_path(current_user.id) %></li>
-                        <li><%= link_to "Log out", logout_path, method: "delete" %></li>
-                    </ul>
-                </li>
+                <% if logged_in? %>
+                    <li role="presentation"><a href="/pickups">Home</a></li>
+                    <% if !is_entry? %>
+                        <li role="presentation"><a href="/days">Schedule</a></li>
+                        <li role="presentation"><a href="/reports">Reports</a></li>
+                    <% end %>
+                    
+                    <li role="presentation" class="dropdown"> 
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Account<% if is_admin? %>s<% end %> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <% if is_admin? %>
+                                <li><%= link_to "All Users", users_path %></li>
+                            <% end %>
+                            <li><%= link_to "My Profile", edit_user_path(current_user.id) %></li>
+                            <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+                        </ul>
+                    </li>
+                <% else %>
+                    <li role="presentation"><a href="/">Log In</a></li>
+                <% end %>
             </ul>
         </div>
     </div>
