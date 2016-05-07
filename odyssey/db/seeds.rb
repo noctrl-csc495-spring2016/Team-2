@@ -56,7 +56,7 @@ end
 
 # Create a day
   Day.create!(date:                   Date.today,
-              number_of_pickups:      1,
+              number_of_pickups:      2,
               created_at:             Time.zone.now,
               updated_at:             Time.zone.now,
               status:                 status,

@@ -32,7 +32,7 @@
                 <tbody>
                     <% if @pickups.any? %>
                         <% @pickups.each do |pickup| %>
-                            <tr>
+                            <tr data-link="/pickups/<%= pickup.id %>">
                                 <td>
                                     <%= pickup.donor_name %>
                                 </td>
@@ -49,7 +49,7 @@
                         <% end %>
                     <% else %>
                         <tr>
-                            <td colspan="4">There are no pickups scheduled for this day. View the <a href="/home/home1">Bullpen</a> to schedule some.</td>
+                            <td colspan="4">There are no pickups scheduled for this day. View the <a href="/pickups">Bullpen</a> to schedule some.</td>
                         </tr>
                     <% end %>
                 </tbody>
