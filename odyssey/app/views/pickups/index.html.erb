@@ -3,9 +3,12 @@
   <body>
 
       <%= render 'layouts/navbar' %>
+      
       <div class='container white-container'>
+        
                 <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
+              <%= render 'layouts/flash_messages' %>
                 <h2>Pending Pickups</h2>
                 <p>Select a pickup from the list below to edit. To add a new pickup click 'Add New Pickup'</p>
             </div>
