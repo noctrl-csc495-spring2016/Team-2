@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                     <% @days.each do |day| %>
-                        <tr data-link="<%= days_path %>/<%= day.id %>">
+                        <tr style="cursor:pointer;" data-link="<%= days_path %>/<%= day.id %>">
                             <td>
                                 <%= day.date.strftime('%A, %B %d, %Y') %>
                             </td>
