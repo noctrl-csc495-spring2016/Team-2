@@ -25,6 +25,7 @@
               </thead>
               
               <tbody>
+                <% pCount = 0 %>
                 <% @pickups.each do |pickup| %>
                   <% if(pickup.day_id == nil) %>
                     <tr data-link="<%= pickups_path %>/<%= pickup.id %>/edit">
@@ -33,7 +34,13 @@
                         <td><%= pickup.number_of_items %></td>
                         <td><%= pickup.item_description %></td>
                     </tr>
+                    <% pCount += 1 %>
                   <% end %>
+                <% end %>
+                <% if pCount == 0 %>
+                  <tr>
+                    <td colspan="4"> All pickups are currently scheduled! Check out the <a href="/days">schedule</a> to see when.</td>
+                  </tr>
                 <% end %>
               </tbody>
           </table>
