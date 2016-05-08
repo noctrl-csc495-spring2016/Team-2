@@ -34,14 +34,14 @@
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>User Name</th>
+                            <th>User ID</th>
                             <th>Email</th>
                         </tr>
                     </thead>
                         <% @user.each do |user| %> 
                         <tr>
                             <td>
-                                <%= link_to user.user_name, user %> 
+                                <%= link_to user.user_id, user %>
                             </td>
                             <td>
                                 <%= user.user_email %>

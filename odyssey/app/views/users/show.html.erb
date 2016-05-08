@@ -11,18 +11,19 @@
 
                 <br>
                 <b>User Name: </b>
-                <%= @user.user_name %>
+                <%= @user.user_id %>
                 </br>
                 
                 <br>
                 <b>Email: </b>
                 <%= @user.user_email %>
                 </br>
-                 
+                
                 <br> 
                 <b>Change User Level: </b>
                 <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']] %>
                 </br>
+                
                 <br>
                 <%= f.label :password, "New Password:     "%>
                 <%= f.password_field :password, class: 'form-control' %>
