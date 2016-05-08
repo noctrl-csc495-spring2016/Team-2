@@ -7,14 +7,17 @@
             <br>
                 <%= form_for(:session, url: login_path) do |f| %>
                 <%= render 'layouts/flash_messages' %>
-                
-                <%= f.label :user_id %>
-                <%= f.text_field :user_id, class: 'form-control' %>
-          
-                <%= f.label :password %>
-                <%= f.password_field :password, class: 'form-control' %>
-          
-                <%= f.submit "Log in", class: "btn btn-primary" %>
+                <div class="form-group">
+                    <%= f.label :user_id %>
+                    <%= f.text_field :user_id, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <%= f.label :password %>
+                    <%= f.password_field :password, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <center><%= f.submit "Log in", class: "btn btn-primary", style: "width:50%" %></center>
+                </div>
                 <% end %>
             <br>
             <p class="text-center">Forgot your password? Please contact so.andso@admin.com to request a password reset.</p>

@@ -39,3 +39,4 @@ Repo for Team 2's project Odyssey
 |Scrum Master          |Nick O.   |
 |Git Master            |Chase S.  |
 |Son of Krypton        |Kyle L.   |
+|Code reviewer         |Prof Bill |
