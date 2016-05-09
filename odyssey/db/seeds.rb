@@ -65,7 +65,7 @@ end
               year:                   Time.new.year)
 
 # Create a blank admin user, so that by default, while developing, login will still work
-User.create!(user_id: "",
+User.create!(user_id: "test",
               user_name: "Test Admin",
               user_email: "foo@foo.com",
               password:               "password",

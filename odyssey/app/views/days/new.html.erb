@@ -1,41 +1,43 @@
 <%= render 'layouts/navbar' %>
 
 <script>
-  $(document).ready(function() {
-    $('#calendar').fullCalendar({
-        weekends: false,
-        defaultView: 'month',
-        dayClick: function(date, jsEvent, view){
-            // Would like to put this in a seperate function to allow us to fake a day click when
-            //    the user picks a day from the boxes, however, by hiding the days in the select
-            //    we are triggering the .change event on #day everytime which is the event we would
-            //    need to use in order to register a fake click.. TBD
-            
-            // Remove the old selected day by getting the original event source
-            $('#calendar').fullCalendar( 'refetchEvents' );
-            // Add a temp event
-            $('#calendar').fullCalendar( 'renderEvent', {id:'TEMP', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
-            
-            // Create a date object to manipulate
-            var dObj = new Date(date);
-            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            // Update our select drop-downs
-            $('#month').val(monthNames[dObj.getMonth()]);
-            $('#day').val(dObj.getDate() + 1);
-            $('#year').val(dObj.getFullYear());
-            
-            // Trigger the on change to adjust our selects
-            $( "#month" ).trigger( "change" );
-        },
-        header: {
-          left:   'title',
-          center: '',
-          right:  'today prev,next'
-        }
-    })
-    GetAllDays();
-  });
-
+    $(document).ready(function() {
+        // CALENDAR CONFIGURATION
+        $('#calendar').fullCalendar({
+            weekends: false,
+            defaultView: 'month',
+            dayClick: function(date, jsEvent, view){
+                // Would like to put this in a seperate function to allow us to fake a day click when
+                //    the user picks a day from the boxes, however, by hiding the days in the select
+                //    we are triggering the .change event on #day everytime which is the event we would
+                //    need to use in order to register a fake click.. TBD
+                
+                // Remove the old selected day by getting the original event source
+                $('#calendar').fullCalendar( 'refetchEvents' );
+                // Add a temp event
+                $('#calendar').fullCalendar( 'renderEvent', {id:'TEMP', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
+                
+                // Create a date object to manipulate
+                var dObj = new Date(date);
+                var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                // Update our select drop-downs
+                $('#month').val(monthNames[dObj.getMonth()]);
+                $('#day').val(dObj.getDate() + 1);
+                $('#year').val(dObj.getFullYear());
+                
+                // Trigger the on change to adjust our selects
+                $( "#month" ).trigger( "change" );
+            },
+                header: {
+                left:   'title',
+                center: '',
+                right:  'today prev,next'
+            }
+        })
+        GetAllDays();
+    });
+    
+    // AJAX GET function to retrieve all the days when loading the calendar
     function GetAllDays() {
         var events = [];
         $.ajax({
@@ -44,12 +46,14 @@
             url: "/days/all",
             success: function(data) {
                 $.each(data, function(key, value){
-                    //console.log(JSON.stringify(value))
+                    // push the day into our array
                     events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
                 })
+                // add our built array as a data source to the calendar
                 $('#calendar').fullCalendar( 'addEventSource', events );
             },
             error: function(data) {
+                // Uh oh
                 alert(data.responseText);
             }
         });
@@ -102,15 +106,15 @@
 <script>
     // Change the number of days we show based on the month and year selected
     $("#month, #year").change(function() {
-        // Create date object to manipulate
+        // Create date object to manipulate (using whats currently in select boxes)
         var dateObj = new Date( $("#month").val() + "1 ," + $("#year").val())
         var numDaysInMonth = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate()
-        // Loop through the selects to hide or show the correct ones
+        // Loop through days in the select to show the correct days based on the year+month
         $('#day > option').each(function(){
-            // If the day is in this month
+            // If the day is in this month show it
             if (Number(this.value) <= numDaysInMonth) {
                 $(this).show();
-            } else {
+            } else { //else hide it
                 $(this).hide();
             }
         })

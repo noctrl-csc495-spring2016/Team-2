@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         else #nonadmin wants to change password
             if @user.update_attributes(user_params)
                 flash[:success] = "Successfully updated account"
-              redirect_to users_url
+              redirect_to pickups_path
             else
               flash[:danger] = "Password is invalid"
               redirect_to action: "edit"
