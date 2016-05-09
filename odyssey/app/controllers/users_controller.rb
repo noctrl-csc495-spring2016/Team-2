@@ -26,10 +26,10 @@ class UsersController < ApplicationController
     
     def update
         @user = User.find(params[:id])
-        if(@user.permission_level == 2) #admin is attempting to update user
+        if(current_user.permission_level == 2) #admin is attempting to update user
             if @user.update_attributes(admin_params)
                 flash[:success] = "Successfully updated account"
-              redirect_to users_url
+              redirect_to action: "index"
             else
               flash[:danger] = "Password is invalid"
               redirect_to action: "show"
