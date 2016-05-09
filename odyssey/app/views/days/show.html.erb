@@ -8,7 +8,7 @@
             <p>Select a pickup from the list below to edit it.</p>
         </div>
     </div>
-    <% # if there are no pickups for this day, let them delete the day %>
+    <% # if there are no pickups for this day, let them delete the day? %>
     <% if @pickups.empty? %>
         <div class="row">
             <div class="col-xs-5 col-xs-offset-1">
@@ -32,7 +32,7 @@
                 <tbody>
                     <% if @pickups.any? %>
                         <% @pickups.each do |pickup| %>
-                            <tr data-link="/pickups/<%= pickup.id %>">
+                            <tr style="cursor:pointer;" data-link="/pickups/<%= pickup.id %>">
                                 <td>
                                     <%= pickup.donor_name %>
                                 </td>

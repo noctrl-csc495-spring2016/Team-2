@@ -32,20 +32,25 @@
                     <% @days.each do |day| %>
                         <tr style="cursor:pointer;" data-link="<%= days_path %>/<%= day.id %>">
                             <td>
+                                <% # format the date as Day, Month dd, yyyy %>
                                 <%= day.date.strftime('%A, %B %d, %Y') %>
                             </td>
                             <td>
                                 <%= day.number_of_pickups %>
                             </td>
                             <td>
+                                <% # For each day, go trhough all pickups. If there are pickups, %>
+                                <% #     loop through and print all the cities for that pickups. %>
                                 <% if day.pickups.any? %>
                                     <% day.pickups.each do |p| %>
                                         <%= p.donor_city %>
                                         <% if p != day.pickups.last %>
+                                            <% # put a comma inbetween the cities if its not the last pickup %>
                                             <%= ',' %>
                                         <% end %>
                                     <% end %>
                                 <% else %>
+                                    <% # only show this if no pickups for the given day %>
                                     <small><em>No scheduled pickups</em></small>
                                 <% end %>
                             </td>
