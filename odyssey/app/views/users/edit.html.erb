@@ -19,11 +19,6 @@
                 <%= @user.user_email %>
                 </br>
                 
-                <br> 
-                <b>Change User Level: </b>
-                <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']] %>
-                </br>
-                
                 <br>
                 <%= f.label :password, "New Password:     "%>
                 <%= f.password_field :password, class: 'form-control' %>
@@ -33,8 +28,7 @@
                 </br>
               
                 <%= f.submit "Update Account", class: "btn btn-primary" %>
-                <%= link_to "Cancel", users_index_path, class: "btn btn-primary" %>
-                <%= link_to "Remove User", @user, method: :delete, data: { confirm: "You sure breh?" } , class: "btn btn-primary"%>    
+                <%= link_to "Cancel", pickups_path, class: "btn btn-primary" %>
             <% end %>
             </div>
     </div>

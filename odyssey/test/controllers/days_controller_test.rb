@@ -25,10 +25,10 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_difference('Day.count') do
-      post :create, { month: @day.month, day: @day.day, year: @day.year }
+      post :create, { month: 'December', day: 25, year: 2016 }
     end
   
-    assert_redirected_to :index
+    assert_redirected_to days_path
   end
 
   test "should show day" do
@@ -50,14 +50,14 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_difference('Day.count') do
-      post :create, { month: @day.month, day: @day.day, year: @day.year }
+      post :create, { month: 'December', day: 26, year: 2016 }
     end
     
     assert_no_difference('Day.count') do
-      post :create, { month: @day.month, day: @day.day, year: @day.year }
+      post :create, { month: 'December', day: 26, year: 2016 }
     end
     
-    assert_redirected_to :new
+    assert_redirected_to days_new_path
   end
   
   test "cant enter a day in the past" do

@@ -2,7 +2,12 @@ class SessionsController < ApplicationController
   # Logging out is only allowed if the user is actually logged in
   before_action :logged_in, only: [:destroy]
   
+  # If the user is already logged in, they should be routed to the homepage.
+  #  Otherwise, render the login screen
   def new
+    if logged_in?
+      redirect_to pickups_path
+    end
   end
   
   # Create will log the user in, or display a message if the login attempt
@@ -15,7 +20,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # Store the user_id in the session
       log_in user
-      redirect_to '/home/home1'
+      flash[:success] = "Welcome #{user.user_name}"
+      redirect_to pickups_path
     else
       # Otherwise, keep them on the login page.
       flash.now[:danger] = 'Invalid user ID/password combination'

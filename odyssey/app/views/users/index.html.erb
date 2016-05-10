@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-xs-5 col-xs-offset-1">
         <%= button_to "Create New User", 
-            { :action => "new" }, :method => :get  %>                
+            { :action => "new" }, :method => :get, class: 'btn btn-success'  %>                
             </div>
         </div>
         <br />
@@ -32,14 +32,16 @@
             <%= render 'layouts/flash_messages' %>
                 <!-- Table of users -->
                 <table class="table table-hover table-striped">
-                    <tr>
-                        <th>User Name</th>
-                        <th>Email</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
                         <% @user.each do |user| %> 
                         <tr>
                             <td>
-                                <%= link_to user.user_name, user %> 
+                                <%= link_to user.user_id, user %>
                             </td>
                             <td>
                                 <%= user.user_email %>

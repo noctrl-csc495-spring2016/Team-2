@@ -1,86 +1,70 @@
-<!DOCTYPE html>
-
-<head>
-</head>
-
-<body>
-
-    <%= render 'layouts/navbar' %>
-    <div class='container white-container'>
-
-<%= form_for(@pickup) do |f| %>
+<%= render 'layouts/navbar' %>
+<div class='container white-container'>
+  <div class="row">
+    <div class="col col-lg-12">
+      <h2>Add a New Pickup</h2>
+    </div>
+  </div>
   
-  <%= f.label :donor_name, "Name" %>
-  <%= f.text_field :donor_name, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :donor_address_line1, "Address" %>
-  <%= f.text_field :donor_address_line1, class: 'form_control' %>
-  <br>
-  
-  <%= f.label :donor_address_line2, "- - - - - -" %>
-  <%= f.text_field :donor_address_line2, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :donor_city, "City" %>
-  <%= f.text_field :donor_city, class: 'form_control'  %>
-  <br>
-  <br>
-  
-  <%= f.label :donor_zip, "Zip Code" %>
-  <%= f.text_field :donor_zip, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :donor_dwelling_type, "Type of Residence" %>
-  <%= f.text_field :donor_dwelling_type, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :donor_location_instructions, "Location Instructions"  %>
-  <%= f.text_field :donor_location_instructions, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :donor_phone, "Phone Number" %>
-  <%= f.text_field :donor_phone, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :donor_email, "E-Mail"  %>
-  <%= f.email_field :donor_email, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :number_of_items, "Number of Items" %>
-  <%= f.number_field :number_of_items, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :item_description, "Item Description(s)"  %>
-  <%= f.text_area :item_description, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :other_notes, "Other Notes"  %>
-  <%= f.text_area :other_notes, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.label :pickup_time, "Pickup Time"  %>
-  <%= f.text_field :pickup_time, class: 'form_control' %>
-  <br>
-  <br>
-  
-  <%= f.submit "Add Pickup to Bullpen", class: "btn btn-primary" %>
-  
-  
-<% end %>
-
+  <div class="row" style="padding-bottom: 30px;">
+    <div class="col col-lg-12">
+      <%= form_for(@pickup) do |f| %>
+        <div class="form-group">
+          <%= f.label :donor_name, "Name" %>
+          <%= f.text_field :donor_name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_address_line1, "Address Line 1" %>
+          <%= f.text_field :donor_address_line1, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_address_line2, "Address Line 2" %>
+          <%= f.text_field :donor_address_line2, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_city, "City" %>
+          <%= f.text_field :donor_city, class: 'form-control'  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_zip, "Zip Code" %>
+          <%= f.text_field :donor_zip, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_dwelling_type, "Type of Residence" %>
+          <%= f.text_field :donor_dwelling_type, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_location_instructions, "Location Instructions"  %>
+          <%= f.text_field :donor_location_instructions, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_phone, "Phone Number" %>
+          <%= f.text_field :donor_phone, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :donor_email, "E-Mail"  %>
+          <%= f.email_field :donor_email, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :number_of_items, "Number of Items" %>
+          <%= f.number_field :number_of_items, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :item_description, "Item Description(s)"  %>
+          <%= f.text_area :item_description, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :other_notes, "Other Notes"  %>
+          <%= f.text_area :other_notes, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :pickup_time, "Pickup Time"  %>
+          <%= f.text_field :pickup_time, class: 'form-control' %>
+        </div>
+        <div class="form-group"></div>
+          <%= f.submit "Add Pickup to Bullpen", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-</body>
-
-</html>

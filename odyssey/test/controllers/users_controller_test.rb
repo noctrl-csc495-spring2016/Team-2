@@ -2,44 +2,53 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
+    @user = users(:bill)
+    @other = users(:archer)
   end
 
   test "should get index" do
+    log_in_as(users(:bill))
     get :index
     assert_response :success
-    assert_not_nil assigns(:users)
+    #assert_not_nil assigns(:users)
   end
 
   test "should get new" do
+    log_in_as(users(:bill))
     get :new
     assert_response :success
   end
 
   test "should create user" do
+    log_in_as(users(:bill))
+
     assert_difference('User.count') do
-      post :create, user: { created_at: @user.created_at, perission_level: @user.perission_level, status: @user.status, updated_at: @user.updated_at, user_email: @user.user_email, user_id: @user.user_id, user_name: @user.user_name, user_password_digest: @user.user_password_digest }
+      post :create, user: { user_id:"charlessss", user_email:"charles@charles.com", permission_level: 2 , password: "password", password_confirmation: "password" }
     end
 
-    assert_redirected_to user_path(assigns(:user))
+    assert_redirected_to users_index_path
   end
 
   test "should show user" do
+    log_in_as(users(:bill))
     get :show, id: @user
     assert_response :success
   end
 
   test "should get edit" do
+    log_in_as(users(:bill))
     get :edit, id: @user
     assert_response :success
   end
 
   test "should update user" do
-    patch :update, id: @user, user: { created_at: @user.created_at, perission_level: @user.perission_level, status: @user.status, updated_at: @user.updated_at, user_email: @user.user_email, user_id: @user.user_id, user_name: @user.user_name, user_password_digest: @user.user_password_digest }
-    assert_redirected_to user_path(assigns(:user))
+    log_in_as(users(:bill))
+    patch :update, id: @user, user: { password: "charlie", password_confirmation: "charlie" }
+    assert_redirected_to users_url
   end
 
   test "should destroy user" do
+    log_in_as(users(:bill))
     assert_difference('User.count', -1) do
       delete :destroy, id: @user
     end
