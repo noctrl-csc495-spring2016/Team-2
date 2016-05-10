@@ -25,59 +25,49 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
-                                <label for="fistName">First Name </label>
-                                <input type="text" class="form-control" id="fistName">
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <label for="lastName">Last Name
-                                    <red class="red">*</red>
-                                </label>
-                                <input type="text" class="form-control" id="lastName">
+                                <%= form_for(@pickup) do |f| %>
+                                <%= render 'layouts/flash_messages' %>
+                                <%= f.label :donor_name, "Name" %>
+                                <%= f.text_field :donor_name, class: 'form-control' %>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phoneNum">Phone Number
-                            <red class="red">*</red>
-                        </label>
-                        <input type="text" class="form-control" id="phoneNum">
+                        <%= f.label :donor_phone, "Phone Number" %>
+                        <%= f.text_field :donor_phone, class: 'form-control' %>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email </label>
-                        <input type="email" class="form-control" id="email">
+                        <%= f.label :donor_email, "E-Mail"  %>
+                        <%= f.email_field :donor_email, class: 'form-control' %>
                     </div>
                     <h3> Pickup Address
           <red class="red">*</red>
         </h3>
                     <div class="form-group">
-                        <label for="line1">Line 1 </label>
-                        <input type="text" class="form-control" id="line1">
+                        <%= f.label :donor_address_line1, "Address Line 1" %>
+                        <%= f.text_field :donor_address_line1, class: 'form-control' %>
                     </div>
                     <div class="form-group">
-                        <label for="line2">Line 2</label>
-                        <input type="text" class="form-control" id="line2">
+                        <%= f.label :donor_address_line2, "Address Line 2" %>
+                        <%= f.text_field :donor_address_line2, class: 'form-control' %>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
-                                <label for="city">City </label>
-                                <input type="text" class="form-control" id="city">
+                                <%= f.label :donor_city, "City" %>
+                                <%= f.text_field :donor_city, class: 'form-control'  %>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <label for="zipCode">Zip Code </label>
-                                <input type="text" class="form-control" id="zipCode">
+                                <%= f.label :donor_zip, "Zip Code" %>
+                                <%= f.text_field :donor_zip, class: 'form-control' %>
                             </div>
                         </div>
                     </div>
 
                     <!--Address-->
                     <div class="form-group">
-                        <label for="userType">Dwelling Type </label>
-                        <select class="form-control">
-                            <option value="current">Current Residence</option>
-                            <option value="sellMove">Selling/Moving Home</option>
-                            <option value="storageFacility">Storage Facility</option>
-                        </select>
+                        <%= f.label :donor_dwelling_type, "Type of Residence" %>
+                        <%= f.text_field :donor_dwelling_type, class: 'form-control' %>
                     </div>
                 </form>
             </div>
@@ -90,30 +80,19 @@
                 <!--Number of Items-->
                 <form>
                     <div class="form-group">
-                        <label for="numItems">Number of Items: </label>
-                        <select class="form-control">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10+</option>
-                        </select>
+                        <%= f.label :number_of_items, "Number of Items" %>
+                        <%= f.number_field :number_of_items, class: 'form-control' %>
                     </div>
 
                     <!-- Item & Donor Notes-->
                     <!-- Max text input length 300 chars -->
                     <div class="form-group">
-                        <label for="itemNotes">Item Notes </label>
-                        <textarea class="form-control custom-control" id="itemNotes" rows="5" maxlength="300" style="resize:none"></textarea>
+                        <%= f.label :item_description, "Item Description(s)"  %>
+                        <%= f.text_area :item_description, class: 'form-control' %>
                     </div>
                     <div class="form-group">
-                        <label for="donorNotes">Donor Notes </label>
-                        <textarea class="form-control custom-control" id="donorNotes" rows="5" maxlength="300" style="resize:none"></textarea>
+                        <%= f.label :other_notes, "Other Notes"  %>
+                        <%= f.text_area :other_notes, class: 'form-control' %>
                     </div>
 
                     <!-- Form sumbit-->
