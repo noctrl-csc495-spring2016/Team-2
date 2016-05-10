@@ -8,15 +8,15 @@
                 <h4> Please enter the number of items to be donated, and a brief description of them.</h4>
             </div>
         </div>
+        <%= form_for(@pickup) do |f| %>
         <div class="row">
             <div class="col-xs-6">
-
+                
                 <!--Donor Info -->
-                <form>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
-                                <%= form_for(@pickup) do |f| %>
+                                
                                 <%= render 'layouts/flash_messages' %>
                                 <%= f.label :donor_name, "Name" %>
                                 <%= f.text_field :donor_name, class: 'form-control' %>
@@ -31,9 +31,7 @@
                         <%= f.label :donor_email, "E-Mail"  %>
                         <%= f.email_field :donor_email, class: 'form-control' %>
                     </div>
-                    <h3> Pickup Address
-          <red class="red">*</red>
-        </h3>
+                    
                     <div class="form-group">
                         <%= f.label :donor_address_line1, "Address Line 1" %>
                         <%= f.text_field :donor_address_line1, class: 'form-control' %>
@@ -60,7 +58,6 @@
                         <%= f.label :donor_dwelling_type, "Type of Residence" %>
                         <%= f.text_field :donor_dwelling_type, class: 'form-control' %>
                     </div>
-                </form>
             </div>
             <!--END DONOR INFO-->
 
@@ -69,7 +66,6 @@
             <div class="col-xs-6">
 
                 <!--Number of Items-->
-                <form>
                     <div class="form-group">
                         <%= f.label :number_of_items, "Number of Items" %>
                         <%= f.number_field :number_of_items, class: 'form-control' %>
@@ -88,16 +84,14 @@
                     
 
                     <!-- Form sumbit-->
-                    <div class="padding-top">
-                        <div class="form-group">
-                            <div class="form-group"></div>
+                            
+            </div>
+            
+            <div class="form-group"></div>
                                <%= f.submit "Add Pickup to Bullpen", class: "btn btn-primary" %>
                             </div>
-                        </div>
-                    </div>
+                        
                     <% end %>
-                </form>
-            </div>
             <!-- END ITEM INFO-->
 
         </div>
