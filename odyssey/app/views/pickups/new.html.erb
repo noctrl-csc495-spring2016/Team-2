@@ -9,6 +9,7 @@
   <div class="row" style="padding-bottom: 30px;">
     <div class="col col-lg-12">
       <%= form_for(@pickup) do |f| %>
+      <%= render 'layouts/flash_messages' %>
         <div class="form-group">
           <%= f.label :donor_name, "Name" %>
           <%= f.text_field :donor_name, class: 'form-control' %>
