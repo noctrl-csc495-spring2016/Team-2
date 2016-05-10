@@ -1,32 +1,40 @@
+#Kyle Loveless
+#Pickup Controller handles requests to the pickup pages
+
 class PickupsController < ApplicationController
   before_action :logged_in
   before_action :admin_or_standard, except: [:show,:index,:new,:create]
-  def show
-    @pickup = Pickup.find(params[:id])
-  end
   
+  #The index is the bullpen
   def index
-    @pickups = Pickup.all
+    @pickup = Pickup.all
   end
   
+  #new will allow the user to fill out a form to create a new pickup
   def new
     @pickup = Pickup.new
   end
   
+  #this action is what allows the user to actually create the pickup and passes 
+  #the params into a new pickup, then redirects back to the bullpen
   def create
     @pickup = Pickup.new(pickup_params)
     if @pickup.save
-      redirect_to @pickup
+      redirect_to '/pickups/index'
     else
+      flash.now[:bad_input] = "Input Invalid"
       render 'new'
     end
   end
   
+  #allows the scheduler to edit a particular pickup and schedule it to a day
   def edit
     @pickup = Pickup.find(params[:id])
     @days = Day.where("date >= ?", Date.today).all
   end
   
+  #updates the pickup that the scheduler is working with and overwrites the 
+  #saved information
   def update
     @pickup = Pickup.find(params[:id])
     if @pickup.update_attributes(pickup_params)

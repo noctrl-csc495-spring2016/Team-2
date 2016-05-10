@@ -26,7 +26,7 @@
               
               <tbody>
                 <% pCount = 0 %>
-                <% @pickups.each do |pickup| %>
+                <% @pickup.each do |pickup| %>
                   <% if(pickup.day_id == nil) %>
                     <tr style="cursor:pointer;" data-link="<%= pickups_path %>/<%= pickup.id %>/edit">
                         <td><%= pickup.donor_name %></td>
