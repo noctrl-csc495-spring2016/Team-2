@@ -6,7 +6,6 @@ class Pickup < ActiveRecord::Base
   validates :donor_email, presence: true
   validates :donor_zip, presence: true
   validates :donor_dwelling_type, presence: true
-  validates :pickup_time, presence: true
   
   #Function that builds csv file with donor info. Called in reports controller.
   def self.to_donor_csv

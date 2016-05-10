@@ -20,9 +20,9 @@ class PickupsController < ApplicationController
   def create
     @pickup = Pickup.new(pickup_params)
     if @pickup.save
-      redirect_to '/pickups/index'
+      redirect_to '/pickups'
     else
-      flash.now[:bad_input] = "Input Invalid"
+      flash[:danger] = "Input Invalid"
       render 'new'
     end
   end
@@ -38,7 +38,7 @@ class PickupsController < ApplicationController
   def update
     @pickup = Pickup.find(params[:id])
     if @pickup.update_attributes(pickup_params)
-      redirect_to @pickup
+      redirect_to "/pickups"
     else
       render 'edit'
     end
