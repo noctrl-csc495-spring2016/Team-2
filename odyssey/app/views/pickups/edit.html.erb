@@ -81,6 +81,10 @@
           <br>
           <br>
           
+          <%= f.label :day_id, "Schedule Day" %>
+          <%= select_tag :day_id, options_for_select(@days.collect{|d| [d.date.strftime("%a %b %d"), d.id]}),
+      class: "form-control" %>
+          
           <%= f.submit "Save Changes to Pickup", class: "btn btn-primary" %>
           
           

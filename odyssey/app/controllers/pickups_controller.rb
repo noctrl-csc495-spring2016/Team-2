@@ -24,6 +24,7 @@ class PickupsController < ApplicationController
   
   def edit
     @pickup = Pickup.find(params[:id])
+    @days = Day.where("date >= ?", Date.today).all
   end
   
   def update
@@ -39,7 +40,7 @@ class PickupsController < ApplicationController
     
     def pickup_params
       params.require(:pickup).permit(:donor_name, :donor_address_line1, :donor_address_line2, :donor_city, :donor_zip, :donor_dwelling_type, :donor_location_instructions,
-      :donor_phone, :donor_email, :number_of_items, :item_description, :other_notes, :pickup_time)
+      :donor_phone, :donor_email, :number_of_items, :item_description, :other_notes, :pickup_time, :day_id)
     end
 
 end
